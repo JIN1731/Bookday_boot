@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PostComment">
+
+	<select id="selectPostCListByPseq" resultType="kh.bookday.dto.PostCommentDTO">
+		select * from post_comment where p_seq = #{p_seq} order by pc_seq
+	</select>
+	
+	<select id="selectPCListByPseq" resultType="kh.bookday.dto.PostCommentDTO">
+		select * from post_comment where p_seq = #{p_seq} and pc_seq > #{pc_seq} order by pc_seq
+	</select>
+	
+	<insert id="insertPostComment">
+		insert into post_comment values (post_comment_seq.nextval, #{pc_writer_id}, #{sysprofname}, #{pc_writer_nn}, sysdate, #{pc_content}, #{p_seq})
+	</insert>
+
+	<delete id="deletePostComment">
+		delete from post_comment where pc_seq = #{pc_seq}
+	</delete>
+	
+	<delete id="deletePostCommentByPseq">
+		delete from post_comment where p_seq = #{p_seq}
+	</delete>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Wishlist">
+	<!-- 수진 -->
+	<select id="selectWishlistListById" resultType="kh.bookday.dto.WishlistDTO">
+		select * from wishlist where id = #{id} order by w_add_date desc
+	</select>
+	
+	<select id="selectWishlistCountById" resultType="int">
+		select count(*) from wishlist where id = #{id}
+	</select>
+	<!-- 수진 -->
+	
+	<!-- 위시리스트 체크 -->
+	<select id="selectWishlistByIdBisbn" resultType="kh.bookday.dto.WishlistDTO">
+		select * from wishlist where id = #{id} and b_isbn = #{b_isbn}
+	</select>
+	
+	<!-- 위시리스트 추가 -->
+	<insert id="insertWishlist">
+		insert into wishlist values(wishlist_seq.nextval,#{id}, #{b_isbn}, #{b_img_url}, #{b_title}, #{b_writer}, #{b_genre}, default)
+	</insert>
+	
+</mapper>

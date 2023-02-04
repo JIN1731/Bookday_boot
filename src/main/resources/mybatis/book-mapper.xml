@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Book">
+
+	<insert id="insertBook">
+		insert into book values(#{b_isbn}, #{b_ranking}, #{b_title}, #{b_writer}, #{b_genre}, #{b_publisher}, #{b_publication_date}, #{b_img_url}, #{b_description})
+	</insert>
+
+	<select id="selectList" resultType="kh.bookday.dto.BookDTO">
+		select b_img_url from book
+	</select>
+<!-- 수진 -->
+	<select id="selectBookListBySw" resultType="kh.bookday.dto.BookDTO">
+		select * from book where b_title like '%'||#{searchWord}||'%' or b_writer like '%'||#{searchWord}||'%' or b_genre like '%'||#{searchWord}||'%'		
+	</select>
+<!-- 수진 -->
+
+	<select id="selectBookByIsbn" resultType="kh.bookday.dto.BookDTO">
+		select * from book where b_isbn=#{b_isbn}
+	</select>
+	
+	<!-- 베스트셀러 출력 -->
+	<select id="selectBestSeller" resultType="kh.bookday.dto.BookDTO">
+		select * from book where <![CDATA[rownum <= 12]]> order by b_ranking
+	</select>
+	
+	<!-- 스테디셀러 출력 -->
+	 <select id="selectSteadySeller" resultType="kh.bookday.dto.BookDTO">
+		select * from book where <![CDATA[rownum <= 12]]> order by b_publication_date, b_ranking 
+	</select> 
+	
+	<!-- 신간 도서 출력 -->
+	 <select id="selectNewBooks" resultType="kh.bookday.dto.BookDTO">
+		select * from book where <![CDATA[rownum <= 12]]> order by b_publication_date desc
+	</select> 
+	
+	<!-- 함께 담은 책 출력 -->
+	<select id="selectWithBooks" resultType="kh.bookday.dto.BookDTO">
+		select * from book 
+		where b_isbn= any(select DISTINCT b_isbn from wishlist 
+		where <![CDATA[rownum <= 10]]> 
+		and id = any (select id from wishlist where b_isbn=#{b_isbn})
+		and b_isbn not in (#{b_isbn}))
+	</select>
+		
+</mapper>
+

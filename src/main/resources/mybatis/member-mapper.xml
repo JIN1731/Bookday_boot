@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+
+	<select id="selectMemberById"
+		resultType="kh.bookday.dto.MemberDTO">
+		select * from member where id = #{id}
+	</select>
+
+	<select id="checkByNickname" resultType="boolean">
+		select count(*) from member where nickname = #{value}
+	</select>
+
+	<select id="checkByPhone" resultType="boolean">
+		select count(*) from member where phone = #{value}
+	</select>
+
+	<select id="isLoginOk" resultType="boolean">
+		select count(*) from member where phone=#{phone} and pw=#{pw}
+	</select>
+
+	<insert id="signUp">
+		insert into member
+		values(#{id},#{phone},#{pw},#{name},#{nickname},#{email},'','','','','',default,0,'basic.png',default,default)
+	</insert>
+
+	<select id="selectIdByPhone" resultType="String">
+		select * from member where phone = #{value}
+	</select>
+
+	<select id="selectByEmail" resultType="boolean">
+		select count(*) from member where email = #{email}
+	</select>
+
+	<update id="updatePw" parameterType="hashmap">
+		update member set pw=#{pw} where phone=#{phone}
+	</update>
+
+	<update id="updateMemInfo">
+		update member set pw=#{pw}, phone=#{phone}, name=#{name}, nickname=#{nickname},
+		email=#{email}, oriprofname=#{oriprofname},sysprofname=#{sysprofname},
+		postcode = #{postcode}, address1 =#{address1}, address2 =#{address2}	
+		where id=#{id}
+	</update>
+
+	<!-- 회원 배송지 정보 입력 -->
+	<update id="updateMemberAddressById">
+		update member set postcode = #{postcode}, address1 =
+		#{address1}, address2 = #{address2}, reciver = #{reciver},
+		reciver_phone = #{reciver_phone} where id = #{id}
+	</update>
+
+	<!-- 회원 등급 변경 -->
+	<update id="updateMemberGradeById">
+		update member set grade = '월구독' where id = #{id}
+	</update>
+
+	<!-- 월 구독 회원 등록 -->
+	<insert id="insertMonthSubMemberById">
+		insert into month_sub_member values(#{id}, default,
+		default, default, default)
+	</insert>
+
+	<!-- 월 구독 회원 정보 조회 -->
+	<select id="selectMonthSubMemberById"
+		resultType="kh.bookday.dto.MonthSubMemberDTO">
+		select * from month_sub_member where id = #{id}
+	</select>
+
+	<!-- 남은 배송 횟수, 남은 대여 권수 계산 -->
+	<update id="updateMonthSubMemberById">
+		update month_sub_member set delivery_count =
+		delivery_count -1, rental_count = #{rental_count} where id = #{id}
+	</update>
+
+</mapper>

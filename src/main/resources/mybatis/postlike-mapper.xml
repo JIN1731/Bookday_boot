@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PostLike">
+
+	<select id="selectPostLikeListById" resultType="kh.bookday.dto.PostLikeDTO">
+		select * from post_like where id = #{id} order by p_seq
+	</select>
+	
+	<select id="selectPostLike" resultType="boolean">
+		select count(*) from post_like where id = #{id} and p_seq = #{p_seq}
+	</select>
+	
+	<insert id="insertPostLike">
+		insert into post_like values (post_like_seq.nextval, #{id}, #{p_seq}, #{p_writer_id}, #{b_isbn})
+	</insert>
+	
+	<delete id="deletePostLike">
+		delete from post_like where id = #{id} and p_seq = #{p_seq}
+	</delete>
+	
+	<delete id="deletePostLikeByPseq">
+		delete from post_like where p_seq = #{p_seq}
+	</delete>
+</mapper>

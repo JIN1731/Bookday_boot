@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Review">
+
+	<select id="selectReviewByIsbn" resultType="kh.bookday.dto.ReviewDTO">
+		select review.*, (select count(*) from review_like rl where rl.rv_seq=review.rv_seq) r_count_like from review where b_isbn=#{b_isbn} order by rv_seq desc
+	</select>
+	
+	<insert id="insertReview">
+		insert into review(rv_seq,rv_writer_id,rv_writer_nn,rv_write_date,rv_content,b_isbn) values(review_seq.NEXTVAL,#{rv_writer_id},#{rv_writer_nn},sysdate,#{rv_content},#{b_isbn})
+	</insert>
+	
+	<delete id="deleteReview">
+		delete from review where b_isbn=#{b_isbn} and rv_seq=#{rv_seq}
+	</delete>
+	
+	<update id="updateReview">
+		update review set rv_content=#{rv_content} where b_isbn=#{b_isbn} and rv_seq=#{rv_seq}
+	</update>
+	
+	<select id="findReviewLike" resultType="kh.bookday.dto.ReviewLikeDTO">
+		select * from review_like where b_isbn= #{b_isbn} and id= #{id}
+	</select>
+	
+	<select id="countReviewLike" resultType="int">
+		select count(*) from review_like where b_isbn = #{b_isbn} and rv_seq= #{rv_seq}
+	</select>
+	
+	<insert id="insertReviewLike">
+		insert into review_like values(review_like_seq.nextval, #{rv_seq}, #{id}, #{b_isbn})
+	</insert>
+	
+	<delete id="deleteReviewLike">
+		delete from review_like where rv_seq=#{rv_seq} and id=#{id}
+	</delete>
+
+	<select id="countReview" resultType="java.lang.Integer">
+		select count(*) from review
+	</select>
+	
+</mapper>
