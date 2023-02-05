@@ -5,11 +5,11 @@
 
 	<!-- 수진 -->
 	<select id="selectRentalListById" resultType="kh.bookday.dto.RentalDTO">
-		select * from rental where id = #{id} and rt_return_date>sysdate order by rt_rental_date desc
+		select * from rental where id = #{id} and rt_return_date>now() order by rt_rental_date desc
 	</select>
 	
 	<select id="selectRentalCountById" resultType="int">
-		select count(*) from rental where id = #{id} and rt_return_date>sysdate
+		select count(*) from rental where id = #{id} and rt_return_date>now()
 	</select>
 	<!-- 수진 -->
 
@@ -26,6 +26,7 @@
 	
 	<!-- 가장 최근 대여 내역 출력 -->
 	<select id="selectRentalById" resultType="kh.bookday.dto.RentalDTO">
-		select * from (select * from rental order by rt_rental_date desc) where id = #{id} and rownum <![CDATA[ <= 1]]> 
+<!--		select * from (select * from rental order by rt_rental_date desc) where id = #{id} limit 1-->
+		select * from rental where id = #{id} order by rt_rental_date desc limit 1
 	</select>
 </mapper>

@@ -5,14 +5,14 @@
 
 <!-- 수진 -->
 	<insert id="insertPost">
-		insert into post values(post_seq.nextval, #{p_writer_id}, #{sysprofname}, #{b_isbn}, #{b_img_url}, #{b_title}, #{b_writer}, #{b_genre}, #{b_publisher}, #{b_publication_date}, #{dyst_read}, #{dyfn_read}, #{p_writer_nn}, sysdate, #{p_title}, #{p_content}, 0, 0, 0)
+		insert into post values(post_seq.nextval, #{p_writer_id}, #{sysprofname}, #{b_isbn}, #{b_img_url}, #{b_title}, #{b_writer}, #{b_genre}, #{b_publisher}, #{b_publication_date}, #{dyst_read}, #{dyfn_read}, #{p_writer_nn}, now(), #{p_title}, #{p_content}, 0, 0, 0)
 		<selectKey order="AFTER" keyProperty="p_seq" resultType="int">
 			select post_seq.currval from dual
 		</selectKey>
 	</insert>
 		
 	<update id="updatePost">
-		update post set b_isbn = #{b_isbn}, b_img_url = #{b_img_url}, b_title = #{b_title}, b_writer = #{b_writer}, b_genre = #{b_genre}, b_publisher = #{b_publisher}, b_publication_date = #{b_publication_date}, dyst_read = #{dyst_read}, dyfn_read = #{dyfn_read}, p_write_date = sysdate, p_title = #{p_title}, p_content = #{p_content} where p_seq = #{p_seq} and p_writer_id = #{p_writer_id}
+		update post set b_isbn = #{b_isbn}, b_img_url = #{b_img_url}, b_title = #{b_title}, b_writer = #{b_writer}, b_genre = #{b_genre}, b_publisher = #{b_publisher}, b_publication_date = #{b_publication_date}, dyst_read = #{dyst_read}, dyfn_read = #{dyfn_read}, p_write_date = now(), p_title = #{p_title}, p_content = #{p_content} where p_seq = #{p_seq} and p_writer_id = #{p_writer_id}
 	</update>
 	
 	<select id="selectPostCountById" resultType="int">
@@ -24,12 +24,11 @@
 	</select>
 	
 	<select id="select20PostListById" resultType="kh.bookday.dto.PostDTO">
-		<![CDATA[
           select *
-          from (select post.*, row_number() over (order by p_seq) rn from post  where p_writer_id = #{id} order by p_seq)
-          where rn < 21
-         ]]>
-         
+          from post
+          where p_writer_id = #{id}
+          order by p_seq
+          limit 20
 	</select>
 	
 	<select id="selectNextPostListById" resultType="kh.bookday.dto.PostDTO">
@@ -132,7 +131,7 @@
 	
 	<!-- 인기 포스트 출력 -->
 	<select id="selectPopularPost" resultType="kh.bookday.dto.PostDTO">
-		select * from post where  <![CDATA[rownum <= 6]]> order by P_LIKE_COUNT desc
+		select * from post order by P_LIKE_COUNT desc limit 6
 	</select>
 	
 	<select id="selectPostByIsbn" resultType="kh.bookday.dto.PostDTO">

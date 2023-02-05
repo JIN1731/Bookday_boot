@@ -22,17 +22,17 @@
 	
 	<!-- 베스트셀러 출력 -->
 	<select id="selectBestSeller" resultType="kh.bookday.dto.BookDTO">
-		select * from book where <![CDATA[rownum <= 12]]> order by b_ranking
+		select * from book order by b_ranking limit 12
 	</select>
 	
 	<!-- 스테디셀러 출력 -->
 	 <select id="selectSteadySeller" resultType="kh.bookday.dto.BookDTO">
-		select * from book where <![CDATA[rownum <= 12]]> order by b_publication_date, b_ranking 
+		select * from book order by b_publication_date, b_ranking  limit 12
 	</select> 
 	
 	<!-- 신간 도서 출력 -->
 	 <select id="selectNewBooks" resultType="kh.bookday.dto.BookDTO">
-		select * from book where <![CDATA[rownum <= 12]]> order by b_publication_date desc
+		select * from book order by b_publication_date desc limit 12
 	</select> 
 	
 	<!-- 함께 담은 책 출력 -->

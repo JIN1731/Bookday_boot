@@ -34,8 +34,8 @@ public class BookmarkService {
 		return dao.selectBookmarkListBySw(param);
 	}
 	
-	public void deleteBookmark(int bm_seq String id) {
-		dao.deleteBookmark(bm_seq, id);
+	public void deleteBookmark(int bm_seq) {
+		dao.deleteBookmark(bm_seq);
 	}
 
 

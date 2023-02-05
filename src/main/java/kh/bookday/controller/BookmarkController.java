@@ -90,7 +90,7 @@ public class BookmarkController {
 		
 		String id = String.valueOf(session.getAttribute("loginID"));
 
-		service.deleteBookmark(bm_seq, id);
+		service.deleteBookmark(bm_seq);
 		
 		return "redirect:/bookmark/selectBookmarkListById";
 	}

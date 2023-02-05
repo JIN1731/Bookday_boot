@@ -119,7 +119,7 @@ public class BookService {
 				dto.setB_description(detail.get(0).get("book").get("description"));
 
 				dao.insertBook(dto);
-
+				System.out.println();
 			} catch (Exception e) {
 
 				System.out.println("isbn 중복");
