@@ -25,7 +25,7 @@ public class SearchController {
 	// 검색페이지로 이동 
 	@RequestMapping("toSearch")
 	public String toSearch(String searchWord, Model model) {
-
+		System.out.println(searchWord);
 		model.addAttribute("searchWord", searchWord);
 
 		// 책 출력
@@ -45,9 +45,5 @@ public class SearchController {
 		return "error";
 	}
 
-	@RequestMapping("error")
-	public String error() {
-		return "error";
-	}
 
 }

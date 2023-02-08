@@ -634,7 +634,7 @@ text-align:right;
 				        } else {
 				            $('.check').prop('checked', false);
 				        }
-				        var checkCount = $('input[class=check]:checked').length;
+				        let checkCount = $('input[class=check]:checked').length;
 				        document.getElementById("check-count-result").innerText = checkCount;
 				    });
 				    
@@ -644,13 +644,13 @@ text-align:right;
 				        } else {
 				            $('#check-all').prop('checked', false);
 				        }
-				        var checkCount = $('input[class=check]:checked').length;
+				        let checkCount = $('input[class=check]:checked').length;
 				        document.getElementById("check-count-result").innerText = checkCount;
 				    });
 					
 					// 선택 삭제 버튼 기능
 					$("#select-delete").on("click", function() {
-						var checkBoxArr = []; 
+						let checkBoxArr = [];
 						  $("input:checkbox[name='checkbox']:checked").each(function() {
 						  	checkBoxArr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
 						})
@@ -765,7 +765,7 @@ text-align:right;
 					</div>
 					<script>
 					// 체크박스 카운트 기능
-					var checkCount = $('input[class=check]:checked').length;
+					let checkCount = $('input[class=check]:checked').length;
 					console.log(checkCount);
 				    document.getElementById("check-count-result").innerText = checkCount;
 				    
@@ -792,7 +792,7 @@ text-align:right;
 							 if(confirm("대여하시겠습니까?")){
 								 
 								// 대여한 책 대여테이블에 입력 후 책가방테이블에서 삭제
-								var checkBoxArr = []; 
+								let checkBoxArr = [];
 								  $("input:checkbox[name='checkbox']:checked").each(function() {
 								  	checkBoxArr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
 								})
@@ -803,13 +803,13 @@ text-align:right;
 								      data: {
 								      "checkBoxArr" : checkBoxArr // bookbag_seq 값을 가지고 있음
 								      },
-								      success: function(result){
+								      success: function(){
 								    	  location.href = "/delivery/toRentalCompleted";
 								      }
 								   });
 								  
 								  // 월 구독 회원 남은 배송 횟수, 남은 대여 권수 계산
-								  var rentalCountCal = ${sdto.rental_count } - $("#check-count-result").text();
+								  let rentalCountCal = ${sdto.rental_count } - $("#check-count-result").text();
 								  
 								  $.ajax({
 								      url    : "/delivery/updateMonthSubMemberById",

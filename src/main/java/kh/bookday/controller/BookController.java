@@ -267,10 +267,6 @@ public class BookController {
 		e.printStackTrace();
 		return "error";
 	}
-	
-	@RequestMapping("error")
-	public String error() {
-		return "error";
-	}
+
 
 }

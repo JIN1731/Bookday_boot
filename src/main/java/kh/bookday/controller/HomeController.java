@@ -63,13 +63,6 @@ public class HomeController {
 		return "/";
 
 	}
-
-	@RequestMapping("toCurrentTime")
-	public String toCurrentTime(Model model) {
-		
-		return "currentTime";
-	}
-	
 	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {

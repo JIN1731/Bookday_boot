@@ -35,5 +35,8 @@ public class BookmarkDAO {
 	}
 
 
+	public void updateBookmark(BookmarkDTO dto) {
+		db.update("Bookmark.updateBookmark", dto);
+	}
 
 }

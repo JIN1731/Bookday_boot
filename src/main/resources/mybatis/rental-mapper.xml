@@ -3,28 +3,32 @@
 
 <mapper namespace="Rental">
 
+	<!-- 수진 -->
 	<select id="selectRentalListById" resultType="kh.bookday.dto.RentalDTO">
 		select * from rental where id = #{id} and rt_return_date>now() order by rt_rental_date desc
 	</select>
-	
+
 	<select id="selectRentalCountById" resultType="int">
 		select count(*) from rental where id = #{id} and rt_return_date>now()
 	</select>
+	<!-- 수진 -->
 
-	
+
 	<!-- 대여테이블 입력 -->
 	<insert id="insertRental">
 		insert into rental values(0, #{id}, #{b_isbn}, #{b_img_url}, #{b_title}, #{b_writer}, #{b_genre}, default, default)
 	</insert>
-	
+
 	<!-- 방금 대여한 책 리스트 출력 -->
 	<select id="selectRentalListByIdRownum" resultType="kh.bookday.dto.RentalDTO">
-		select * from (select * from rental order by rt_rental_date desc) where id = #{id} and rownum <![CDATA[ <= #{rownum}]]> 
+<!--		select * from (select * from rental order by rt_rental_date desc) where id = #{id} and rownum <![CDATA[ <= #{rownum}]]>-->
+		select * from rental where id = #{id}  order by rt_rental_date desc limit #{rownum}
+
 	</select>
-	
+
 	<!-- 가장 최근 대여 내역 출력 -->
 	<select id="selectRentalById" resultType="kh.bookday.dto.RentalDTO">
-<!--		select * from (select * from rental order by rt_rental_date desc) where id = #{id} limit 1-->
+<!--		select * from (select * from rental order by rt_rental_date desc) where id = #{id} and rownum <![CDATA[ <= 1]]>-->
 		select * from rental where id = #{id} order by rt_rental_date desc limit 1
 	</select>
 </mapper>

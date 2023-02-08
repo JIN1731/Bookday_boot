@@ -44,6 +44,7 @@
 		where id=#{id}
 	</update>
 
+	<!-- 지민 -->
 	<!-- 회원 배송지 정보 입력 -->
 	<update id="updateMemberAddressById">
 		update member set postcode = #{postcode}, address1 =
@@ -73,5 +74,6 @@
 		update month_sub_member set delivery_count =
 		delivery_count -1, rental_count = #{rental_count} where id = #{id}
 	</update>
+	<!-- 지민 -->
 
 </mapper>

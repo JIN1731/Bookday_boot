@@ -467,6 +467,11 @@ span, #logoImg:hover {
 /*  	display: flex;  */
 /*  	justify-content: space-between;  */
 /*  }   */
+
+.swiper-slide{
+	margin-right: 0px !important;
+}
+
 .post {
 	cursor: pointer;
 	padding-top: 40px;

@@ -64,13 +64,10 @@ public class BookshelvesController {
 
 		// 내 책장 첫 20개 출력
 		int pcount = pservice.selectPostCountById(id);
-		System.out.println(pcount);
 		model.addAttribute("pcount", pcount);
 		
 		List<PostDTO> plist = pservice.select20PostListById(id);
 		model.addAttribute("plist", plist);
-		
-		System.out.println(new Gson().toJson(plist));
 
 		return "mybook/bookshelves";
 	}
@@ -91,9 +88,5 @@ public class BookshelvesController {
 		return "error";
 	}
 
-	@RequestMapping("error")
-	public String error() {
-		return "error";
-	}
 }
 

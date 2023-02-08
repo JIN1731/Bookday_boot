@@ -61,7 +61,7 @@ public class MemberDAO {
 		}
 		
 
-	//지민
+
 	// 회원 배송지 정보 입력 
 	public void updateMemberAddressById(MemberDTO dto) {
 		db.update("Member.updateMemberAddressById", dto);
@@ -72,19 +72,5 @@ public class MemberDAO {
 		db.update("Member.updateMemberGradeById", id);
 	}
 
-	// 월 구독 회원 등록 
-	public void insertMonthSubMemberById(String id) {
-		db.insert("Member.insertMonthSubMemberById", id);
-	}
 
-	// 월 구독 회원 정보 조회 
-	public MonthSubMemberDTO selectMonthSubMemberById(String id) {
-		return db.selectOne("Member.selectMonthSubMemberById", id);
-	}
-
-	// 월 구독 회원 남은 배송 횟수, 남은 대여 권수 계산 
-	public void updateMonthSubMemberById(MonthSubMemberDTO dto) {
-		db.update("Member.updateMonthSubMemberById", dto);
-	}
-	// 지민
 }

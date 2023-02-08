@@ -15,11 +15,15 @@
 	</select>
 	
 	<select id="selectBookmarkListBySw" resultType="kh.bookday.dto.BookmarkDTO">
-		select * from bookmark where (bm_writer_id = #{id}) and (b_title like '%'||#{searchWord}||'%' or b_writer like '%'||#{searchWord}||'%' or bm_content like '%'||#{searchWord}||'%') order by bm_seq desc
+		select * from bookmark where (bm_writer_id = #{id}) and (b_title like CONCAT('%',#{searchWord},'%') or b_writer like CONCAT('%',#{searchWord},'%') or bm_content like CONCAT('%',#{searchWord},'%')) order by bm_seq desc
 	</select>
 	
 	<delete id="deleteBookmarkBySeq">
 		delete from bookmark where bm_seq = #{bm_seq} and bm_writer_id = #{bm_writer_id}
 	</delete>
+
+	<update id="updateBookmark">
+		update bookmark set bm_content=#{bm_content} where bm_seq=#{bm_seq}
+	</update>
 
 </mapper>

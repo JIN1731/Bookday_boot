@@ -311,10 +311,6 @@ span.size-30 {
 	justify-content: flex-end;
 }
 
-.bookInfo {
-	display: flex;
-}
-
 .postTitle {
 	text-align: center;
 	font-size: 22px;
@@ -349,9 +345,13 @@ span.size-30 {
 	border-radius: 2%;
 	cursor: pointer;
 }
-
+.txt{
+	margin-top: 5px;
+}
 .bookGenre {
 	font-size: 13px;
+	cursor: pointer;
+	color: #5397fc;
 }
 
 .bookTitle {
@@ -360,11 +360,15 @@ span.size-30 {
 }
 
 .bookWriter {
-	font-size: 16px;
+	font-size: 13px;
+	color: #808080;
+	cursor: pointer;
 }
 
 .bookPublish {
 	font-size: 13px;
+	color: #808080;
+	cursor: pointer;
 }
 
 .dates {
@@ -720,7 +724,7 @@ span.size-20 {
 										<p>
 										<div class="bookTitle" isbn="${dto.b_isbn }">${dto.b_title }</div>
 										</p>
-										<p></p>
+										<p>
 										<div class="bookWriter">${dto.b_writer }</div>
 										</p>
 										<div class="bookPublish">${dto.b_publisher }&nbsp|&nbsp${dto.b_publication_date
@@ -780,7 +784,7 @@ span.size-20 {
 																}</div>
 															<c:if test="${loginID == i.pc_writer_id }">
 																<div class="pcBtn">
-<!-- 																	<button class="updCBtn">수정</button> -->
+																	<button class="updCBtn">수정</button>
 																	<button class="delCBtn">삭제</button>
 																</div>
 															</c:if>
@@ -904,23 +908,46 @@ span.size-20 {
                 });
                 $("#toList").on("click", function(){
                 	location.href = "/booknote/selectPostListRev";
-                })
+                });
+
+				$("#postBook").on("click", function(){
+					let b_isbn = $(this).attr("isbn");
+					location.href = "/book/selectBookinfo?b_isbn="+b_isbn;
+				});
+				$(".bookTitle").on("click", function(){
+					let b_isbn = $(this).attr("isbn");
+					location.href = "/book/selectBookinfo?b_isbn="+b_isbn;
+				});
+
+				$(".bookGenre").on("click", function (){
+					let bookGenre = $(this).html();
+					location.href = "/search/toSearch?searchWord="+bookGenre;
+				});
+
+				$(".bookWriter").on("click", function (){
+					let bookWriter = $(this).html();
+					location.href = "/search/toSearch?searchWord="+bookWriter;
+				});
+
                 $("#delPBtn").on("click", function(){
                 	
             		if(confirm("포스트를 삭제하시겠습니까?")){
-                    	let p_seq = $(this).closest(".contentsBody").find("#p_seq").val();
-                		let p_writer_id = $(this).closest(".contentsBody").find("#p_seq").attr("p_writer_id");  
+                    	let p_seq = $("#p_seq").val();
+                		let p_writer_id = $("#p_seq").attr("p_writer_id");
                 		if('<%=(String) session.getAttribute("loginID")%>' == p_writer_id){
             				location.href = "/booknote/deletePostByPseq?p_seq="+p_seq;
             			}
             		}
                 })
                 $("#updPBtn").on("click", function(){
-					alert("수정은 다음 기회에..^_ㅠ");
-                })
-                
+					let p_seq = $("#p_seq").val();
+					let p_writer_id = $("#p_seq").attr("p_writer_id");
 
-                
+					if(`${loginID == p_writer_id}`){
+						location.href = "/booknote/toUpdatePost?p_seq="+p_seq;
+					}
+                })
+
                 
                 $(".insertPcContentBox").keyup(function () {
                     let content = $(this).html();
@@ -978,11 +1005,10 @@ span.size-20 {
                             
                             if ('<%=(String) session.getAttribute("loginID")%>' == res[i].pc_writer_id) {
                                 let pcBtn = $("<div>").addClass("pcBtn");
-//                                 let updatePcBtn = $("<button>").addClass("updCBtn").attr("type", "button").text("수정");
+                                let updatePcBtn = $("<button>").addClass("updCBtn").attr("type", "button").text("수정");
                                 let deletePcBtn = $("<button>").addClass("delCBtn").attr("type", "button").text("삭제");
 
-//                                 pcBtn.append(updatePcBtn).append(deletePcBtn);
-                                pcBtn.append(deletePcBtn);
+                                pcBtn.append(updatePcBtn).append(deletePcBtn);
                                 pcContentsInfo.append(pcBtn);
                             }
                             pcContentsTxt.append(pcContentsInfo);
@@ -991,7 +1017,6 @@ span.size-20 {
 
 
                             $(".postComments").append(pcContents);  
-                            console.log("aaaaaaaaaa");
                         }
                     }
 
@@ -1003,8 +1028,6 @@ span.size-20 {
 						if(lastPc_seq == null){
 							lastPc_seq = 0;
 						}
-                    	console.log(lastPc_seq);
-
 
                         $.getJSON("/booknote/selectPCListByPseq", { "p_seq": p_seq, "pc_seq": lastPc_seq})
                             .done(res => {
@@ -1012,7 +1035,6 @@ span.size-20 {
                                 	$(".pcCount").html("");
                                 	$(".pcCount").append(data);
                                     setPostCommentAppend(res);
-
                                 }
                             })
 
@@ -1021,13 +1043,16 @@ span.size-20 {
 
                         let pc_content = $(".insertPcContentBox").html();
                         let p_seq = $("#p_seq").val();
+						let b_isbn = $("#postBook").attr("isbn");
+						console.log(b_isbn);
 
                         $.ajax({
                             url: "/booknote/insertPostComment",
                             type: "post",
                             data: {
                                 "pc_content": pc_content,
-                                "p_seq": p_seq
+                                "p_seq": p_seq,
+								"b_isbn": b_isbn
                             }, success:function(data){
                                 postCommentList(data);
                                 $(".insertPcContentBox").html("");
@@ -1108,14 +1133,7 @@ $(function(){
 	})
 	})
 	
-	$("#postBook").on("click", function(){
-		let b_isbn = $(this).attr("isbn");
-		location.href = "/book/selectBookinfo?b_isbn="+b_isbn;
-	})
-	$(".bookTitle").on("click", function(){
-		let b_isbn = $(this).attr("isbn");
-		location.href = "/book/selectBookinfo?b_isbn="+b_isbn;
-	})
+
 	        //footer: 사업자 정보 토글 기능
        $("#business_info_text").hide();
 

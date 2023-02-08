@@ -11,6 +11,7 @@ import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -84,8 +85,8 @@ public class PostService {
 	}
 	
 	// 포스트 페이지) 포스트 수정
-	public void updatePost(PostDTO dto) {
-		dao.updatePost(dto);
+	public int updatePost(PostDTO dto) {
+		return dao.updatePost(dto);
 	}
 	
 	// 포스트 페이지) 포스트 조회수
@@ -104,6 +105,7 @@ public class PostService {
 	}
 
 	// 포스트 페이지) 포스트 좋아요 입력
+	@Transactional
 	public String insertPostLike(PostLikeDTO dto) {
 		int result = 0;
 		if(!ldao.selectPostLike(dto)) {
@@ -115,6 +117,7 @@ public class PostService {
 	}
 	
 	// 포스트 페이지)  포스트 좋아요 삭제
+	@Transactional
 	public String deletePostLike(PostLikeDTO dto) {
 		int result = 0;
 		if(ldao.selectPostLike(dto)) {
@@ -136,12 +139,14 @@ public class PostService {
 	}
 
 	// 포스트 페이지) 댓글 입력
+	@Transactional
 	public void insertPostComment(PostCommentDTO dto) {
 		cdao.insertPostComment(dto);
 		dao.updatePCCUp(dto.getP_seq());
 
 	}
 	// 포스트 페이지) 댓글 삭제
+	@Transactional
 	public void deletePostComment(int pc_seq, int p_seq) {
 		cdao.deletePostComment(pc_seq);
 		dao.updatePCCDown(p_seq);

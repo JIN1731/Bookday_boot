@@ -651,7 +651,7 @@
                                 callbacks: {
                                     onImageUpload: function (files) {
                                         // 파일 업로드(다중업로드를 위해 반복문 사용)
-                                        for (var i = files.length - 1; i >= 0; i--) {
+                                        for (let i = files.length - 1; i >= 0; i--) {
                                             // 이미지 아닌 것 막기
                                             let ext = files[i].name.split(".").pop().toLowerCase();
                                             let accept = ["png", "jpg", "jpeg", "gif"];
@@ -702,21 +702,19 @@
                     function saveContent() {
 
                         //값 가져오기
-                        var summernoteContent = $('#summernote')
+                        let summernoteContent = $('#summernote')
                             .summernote('code'); //썸머노트(설명)
-                        var b_isbn = $(".searchResultBookInfo").attr("isbn");
-                        var b_img_url = $("#b_img_url").attr("src");
-                        var b_title = $("#b_title").html();
-                        var b_writer = $(".bookWriter").html();
-                        var b_genre = $(".bookGenre").html();
-                        var b_publisher = $(".bookPublisher").html();
-                        var b_publication_date = $(".bookPublicationDate").html();
-                        var start = $("#demo").attr("start");
-                        var finish = $("#demo").attr("finish");
-                        var dyst_read = $("#demo").val().substring(0, 10);
-                        var dyfn_read = $("#demo").val().substring(13, 23);
-                        var p_writer_nn = $("#contentsHeaderTxt").attr("p_writer_nn");
-                        var p_title = $("#insertBooknoteTitleTxt").val();
+                        let b_isbn = $(".searchResultBookInfo").attr("isbn");
+                        let b_img_url = $("#b_img_url").attr("src");
+                        let b_title = $("#b_title").html();
+                        let b_writer = $(".bookWriter").html();
+                        let b_genre = $(".bookGenre").html();
+                        let b_publisher = $(".bookPublisher").html();
+                        let b_publication_date = $(".bookPublicationDate").html();
+                        let dyst_read = $("#demo").val().substring(0, 10);
+                        let dyfn_read = $("#demo").val().substring(13, 23);
+                        let p_writer_nn = $("#contentsHeaderTxt").attr("p_writer_nn");
+                        let p_title = $("#insertBooknoteTitleTxt").val();
 
                         $
                             .ajax({
@@ -738,7 +736,7 @@
                                 },
 
                                 success: function (data) {
-                                    var p_seq = data;
+                                    let p_seq = data;
                                     location.href = "/booknote/selectPostByPseq?p_seq="
                                         + p_seq;
 
@@ -970,7 +968,7 @@
     })
     $("#booknoteBookSearchWord").on("keydown", function (e) {
         if (e.keyCode == 13) {
-            var searchWord = $("#booknoteBookSearchWord").val();
+            let searchWord = $("#booknoteBookSearchWord").val();
             $("#booknoteBookSearchWord").val("");
             window.open("/book/toBookSearchPop?searchWord="
                 + searchWord, "", "width=600,height=600");
@@ -979,7 +977,7 @@
     $(".booknoteBookSearchBtn").on(
         "click",
         function () {
-            var searchWord = $("#booknoteBookSearchWord").val();
+            let searchWord = $("#booknoteBookSearchWord").val();
             window.open("/book/toBookSearchPop?searchWord="
                 + searchWord, "", "width=600,height=600");
             $("#booknoteBookSearchWord").val("");

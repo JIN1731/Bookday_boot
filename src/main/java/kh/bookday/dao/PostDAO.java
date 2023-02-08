@@ -15,7 +15,6 @@ public class PostDAO {
 	@Autowired
 	private SqlSession db;
 
-// 수진
 	// 책장
 	// 포스트 개수 출력
 	public int selectPostCountById(String id) {
@@ -43,8 +42,8 @@ public class PostDAO {
 		return db.insert("Post.insertPost", dto);
 	}
 
-	public void updatePost(PostDTO dto) {
-		db.update("Post.updatePost", dto);		
+	public int updatePost(PostDTO dto) {
+		return db.update("Post.updatePost", dto);
 	}
 	
 	public void upViewCount(int p_seq) {
@@ -94,19 +93,16 @@ public class PostDAO {
 		return db.selectList("Post.selectPostListById", id);
 	}
 
-// 수진
 
 	//해당 도서 포스트 출력
 	public List<PostDTO> selectPostByIsbn(String b_isbn) {
 		return db.selectList("Post.selectPostByIsbn", b_isbn);
 	}
 
-	// 지민 
-	// 검색 시 포스트 출력
 	public List<PostDTO> selectPostListBySw(String searchWord){
 		return db.selectList("Post.selectPostListBySw", searchWord);
 	}
-	// 지민 
+
 
 	//shu
 	//인기 포스트 출력

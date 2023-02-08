@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.awt.print.Book;
 import java.util.List;
 
 @Controller
@@ -105,14 +104,17 @@ public class BookmarkController {
 		return list.size();
 	}
 
+	@RequestMapping("updateBookmark")
+	@ResponseBody
+	public void updateBookmark(BookmarkDTO dto){
+		service.updateBookmark(dto);
+	}
+
+
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();
 		return "error";
 	}
-	
-	@RequestMapping("error")
-	public String error() {
-		return "error";
-	}
+
 }

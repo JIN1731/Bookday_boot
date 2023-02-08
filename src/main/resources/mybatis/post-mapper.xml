@@ -3,16 +3,15 @@
 
 <mapper namespace="Post">
 
-<!-- 수진 -->
 	<insert id="insertPost">
 		insert into post values(0, #{p_writer_id}, #{sysprofname}, #{b_isbn}, #{b_img_url}, #{b_title}, #{b_writer}, #{b_genre}, #{b_publisher}, #{b_publication_date}, #{dyst_read}, #{dyfn_read}, #{p_writer_nn}, now(), #{p_title}, #{p_content}, 0, 0, 0)
 		<selectKey order="AFTER" keyProperty="p_seq" resultType="int">
-			select max(p_seq) from post where #{p_writer_id}
+			select max(p_seq) from post where p_writer_id = #{p_writer_id}
 		</selectKey>
 	</insert>
 		
 	<update id="updatePost">
-		update post set b_isbn = #{b_isbn}, b_img_url = #{b_img_url}, b_title = #{b_title}, b_writer = #{b_writer}, b_genre = #{b_genre}, b_publisher = #{b_publisher}, b_publication_date = #{b_publication_date}, dyst_read = #{dyst_read}, dyfn_read = #{dyfn_read}, p_write_date = now(), p_title = #{p_title}, p_content = #{p_content} where p_seq = #{p_seq} and p_writer_id = #{p_writer_id}
+		update post set b_isbn = #{b_isbn}, b_img_url = #{b_img_url}, b_title = #{b_title}, b_writer = #{b_writer}, b_genre = #{b_genre}, b_publisher = #{b_publisher}, b_publication_date = #{b_publication_date}, dyst_read = #{dyst_read}, dyfn_read = #{dyfn_read}, p_write_date = now(), p_title = #{p_title}, p_content = #{p_content} where p_seq = #{p_seq}
 	</update>
 	
 	<select id="selectPostCountById" resultType="int">
@@ -68,7 +67,7 @@
 	</update>
 	
 	<select id="selectSearchPostList" resultType="kh.bookday.dto.PostDTO">
-		select * from post where (p_writer_id = #{id}) and (b_title like '%'||#{searchWord}||'%' or b_writer like '%'||#{searchWord}||'%' or p_title like '%'||#{searchWord}||'%' or p_content like '%'||#{searchWord}||'%') order by p_seq desc
+		select * from post where (p_writer_id = #{id}) and (b_title like CONCAT('%',#{searchWord},'%') or b_writer like CONCAT('%',#{searchWord},'%') or b_genre like CONCAT('%',#{searchWord},'%') or p_title like CONCAT('%',#{searchWord},'%') or p_content like CONCAT('%',#{searchWord},'%')) order by p_seq desc
 	</select>
 	
 	<delete id="deletePostByPseq">
@@ -78,17 +77,14 @@
 	<select id="selectPostListById" resultType="kh.bookday.dto.PostDTO">
 		select * from post where p_writer_id = #{id}
 	</select>
-<!-- 수진 -->
 
-<!-- 지민 -->
 
 	<!-- 검색 시 포스트 출력 -->
 	<select id="selectPostListBySw" resultType="kh.bookday.dto.PostDTO">
-		select * from post where b_title like '%'||#{searchWord}||'%' or b_writer like '%'||#{searchWord}||'%' or b_genre like '%'||#{searchWord}||'%'		
+		select * from post where b_title like CONCAT('%',#{searchWord},'%') or b_writer like CONCAT('%',#{searchWord},'%') or b_genre like CONCAT('%',#{searchWord},'%')
 	</select>
 	
-<!-- 지민 -->
-	
+
 	<!-- 인기 포스트 출력 -->
 	<select id="selectPopularPost" resultType="kh.bookday.dto.PostDTO">
 		select * from post order by P_LIKE_COUNT desc limit 6

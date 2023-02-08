@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import kh.bookday.common.NCP_sms;
 import kh.bookday.dao.MemberDAO;
+import kh.bookday.dao.MonthSubMemberDAO;
 import kh.bookday.dto.MemberDTO;
 import kh.bookday.dto.MonthSubMemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class MemberService {
 
 	@Autowired
 	private MemberDAO dao;
+
+	@Autowired
+	private MonthSubMemberDAO mdao;
 
 	public MemberDTO selectMemberById(String id) {
 		return dao.selectMemberById(id);
@@ -251,7 +255,6 @@ public class MemberService {
 		dao.updateMemInfo(dto);
 	}
 
-	// 지민
 	// 회원 배송지 정보 입력
 	public void updateMemberAddressById(MemberDTO dto) {
 		dao.updateMemberAddressById(dto);
@@ -259,12 +262,12 @@ public class MemberService {
 
 	// 월 구독 회원 정보 조회
 	public MonthSubMemberDTO selectMonthSubMemberById(String id) {
-		return dao.selectMonthSubMemberById(id);
+		return mdao.selectMonthSubMemberById(id);
 	}
 
 	// 월 구독 회원 등록
 	public void insertMonthSubMemberById(String id) {
-		dao.insertMonthSubMemberById(id);
+		mdao.insertMonthSubMemberById(id);
 	}
 
 	// 회원 등급 변경
@@ -274,7 +277,7 @@ public class MemberService {
 
 	// 월 구독 회원 남은 배송 횟수, 남은 대여 권수 계산
 	public void updateMonthSubMemberById(MonthSubMemberDTO dto) {
-		dao.updateMonthSubMemberById(dto);
+		mdao.updateMonthSubMemberById(dto);
 	}
 	// 지민
 }

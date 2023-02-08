@@ -50,18 +50,12 @@ public class MemberController {
 		//비밀번호 암호화 후 db에 있는 암호화된 비번과 맞는지 확인
 		String encryPassword = Pw_SHA256.getSHA256(pw);
 
-		System.out.println("비밀번호:"+pw);
-		System.out.println("암호화된 비밀번호:"+encryPassword);
-
 		boolean result=service.isLoginOk(phone,encryPassword);
-
-		//System.out.println(result);
 
 		if(result) {
 
 			//로그인 성공하면 id 값 가져와서 session 만들기
 			String id=service.selectIdByPhone(phone);
-			System.out.println(id);
 			session.setAttribute("loginID",id);
 
 			MemberDTO dto=service.selectMemberById(id);
@@ -84,13 +78,9 @@ public class MemberController {
 	public String signUp(MemberDTO dto){
 
 
-		//System.out.println("비밀번호:"+dto.getPw());
-
 		//비밀번호 암호화
 		String encryPassword = Pw_SHA256.getSHA256(dto.getPw());
 		dto.setPw(encryPassword);
-		
-		//System.out.println("암호화된 비밀번호:"+encryPassword);
 
 		//insert하기
 		service.signUp(dto);
@@ -113,7 +103,6 @@ public class MemberController {
 	public boolean checkByPhone(String phone){
 
 		boolean result= service.checkByPhone(phone);
-		System.out.println("번호 중복 체크 결과:"+result);
 
 		return result; 
 	}
@@ -125,7 +114,6 @@ public class MemberController {
 
 		//번호에 따른 랜덤 인증번호 생성
 		String code= service.createRandomMsg(phone);
-		System.out.println("번호에 따른 인증번호 발급:"+code);
 
 		//세션으로 담아주기? (여러 방법이 있는데 생각해봐야함)
 		session.setAttribute("rand", code);
@@ -140,9 +128,6 @@ public class MemberController {
 
 		//생성된 인증번호
 		String rand=(String) session.getAttribute("rand");
-
-		//인증번호 비교
-		System.out.println(rand+":"+code);
 
 		if (rand.equals(code)) {
 			session.removeAttribute("rand");
@@ -169,8 +154,6 @@ public class MemberController {
 		//다시 암호화
 		String pw=Pw_SHA256.getSHA256(updatePw);
 
-		System.out.println(pw);
-		System.out.println(phone);
 		
 		//해당 회원 정보로 들어갈 update 구문(해당 회원의 아이디 및 번호 값으로 조건을 준 후 update
 		service.updatePw(pw,phone);
@@ -191,20 +174,14 @@ public class MemberController {
 		model.addAttribute("access_Token", access_Token);
 		model.addAttribute("userInfo", userInfo);
 
-		System.out.println(userInfo.getId());
-
 		//카카오 최초 로그인인지 확인-> 디비에서 이메일 정보 확인
 		boolean result=service.selectByEmail(userInfo.getEmail());
-
-		System.out.println(result);
 
 		if(result) {
 			session.setAttribute("loginID", userInfo.getId());
 			session.setAttribute("nickname",userInfo.getNickname());
 		}else {
 			service.kakaoSignUp(userInfo);
-
-			System.out.println(userInfo);
 
 
 			session.setAttribute("loginID", userInfo.getId());
@@ -220,7 +197,6 @@ public class MemberController {
 	public String toMypage(Model model) {
 
 		String id = (String)session.getAttribute("loginID");
-		System.out.println(id);
 
 		// 회원 정보 조회 (구독 여부 확인 & 배송지 정보 출력) 
 		MemberDTO dto = service.selectMemberById(id);
@@ -260,12 +236,9 @@ public class MemberController {
 		dto.setId(id);
 		
 		//비밀번호 암호화
-		System.out.println("디티오에 들어간 비밀번호: "+dto.getPw()+dto.getEmail()+dto.getName()+dto.getNickname()+dto.getPw());
-		
 		String updatedPw=Pw_SHA256.getSHA256(dto.getPw());
 			dto.setPw(updatedPw);
-			System.out.println(updatedPw);
-		
+
 		//파일 관련 업데이트 업로드 참고
 		String realPath= session.getServletContext().getRealPath("/resources/profile");
 		
@@ -291,10 +264,6 @@ public class MemberController {
 				} catch (IllegalStateException | IOException e) {
 					e.printStackTrace();
 				}
-				System.out.println(dto);
-				
-				System.out.println(dto.getAddress1());
-				System.out.println(dto.getAddress2());
 				
 				service.updateMemInfo(dto);
 				
@@ -307,15 +276,9 @@ public class MemberController {
 		}return "redirect:toMypage";
 	}
 
-	//에러 수집
-	@ExceptionHandler(Exception.class) 
+	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();
-		return "error";
-	}
-	
-	@RequestMapping("error")
-	public String error() {
 		return "error";
 	}
 

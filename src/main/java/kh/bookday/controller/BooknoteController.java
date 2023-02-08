@@ -92,7 +92,7 @@ public class BooknoteController {
 	// 포스트 입력
 	@ResponseBody
 	@RequestMapping("insertPost")
-	public int insertPost(PostDTO dto, Model model) {
+	public int insertPost(PostDTO dto) {
 
 		String id = String.valueOf(session.getAttribute("loginID"));
 
@@ -104,7 +104,8 @@ public class BooknoteController {
 		dto.setP_writer_nn(mdto.getNickname());
 		dto.setP_title(dto.getP_title().replace("<", "&lt;"));
 		dto.setP_content(dto.getP_content().replace("<script>", "&lt;"));
-		
+
+		System.out.println(service.insertPost(dto));
 		return service.insertPost(dto);
 
 	}
@@ -161,21 +162,10 @@ public class BooknoteController {
 	// 포스트 수정
 	@ResponseBody
 	@RequestMapping("updatePost")
-	public int updatePost(PostDTO dto, Model model) {
-
-		String id = String.valueOf(session.getAttribute("loginID"));
-
-		// 회원 정보
-		MemberDTO mdto = mservice.selectMemberById(id);
-		
-		dto.setP_seq(dto.getP_seq());
-		dto.setP_writer_id(id);
+	public int updatePost(PostDTO dto) {
 		dto.setP_title(dto.getP_title().replace("<", "&lt;"));
 		dto.setP_content(dto.getP_content().replace("<script>", "&lt;"));
-		service.updatePost(dto);
-		
-		return dto.getP_seq();
-
+		return service.updatePost(dto);
 	}
 	
 	// 포스트 삭제
@@ -201,15 +191,13 @@ public class BooknoteController {
 	// 포스트 댓글 입력
 	@ResponseBody
 	@RequestMapping("insertPostComment")
-	public String insertPostComment(PostCommentDTO cdto) {
+	public int insertPostComment(PostCommentDTO cdto) {
 
 		String id = String.valueOf(session.getAttribute("loginID"));
-		System.out.println(id);
-		
-		cdto.setPc_content(cdto.getPc_content().replace("<script>", "&lt;")); 
-		
+
+		cdto.setPc_content(cdto.getPc_content().replace("<script>", "&lt;"));
+
 		MemberDTO mdto = mservice.selectMemberById(id);
-		System.out.println(mdto.getId());
 		cdto.setPc_writer_id(mdto.getId());
 		cdto.setPc_writer_nn(mdto.getNickname());
 		cdto.setSysprofname(mdto.getSysprofname());
@@ -217,7 +205,7 @@ public class BooknoteController {
 		
 		PostDTO dto = service.selectPostByPseq(cdto.getP_seq());
 		
-		return new Gson().toJson(dto.getP_comment_count());
+		return dto.getP_comment_count();
 	}
 
 	// 포스트 댓글 삭제
@@ -247,7 +235,6 @@ public class BooknoteController {
 		// 포스트 좋아요 리스트
 		List<PostLikeDTO> llist = service.selectPostLikeListById(id);
 		model.addAttribute("llist", llist);
-		System.out.println(llist.size());
 
 		return "mybook/booknote/selectpostlist";
 
@@ -271,10 +258,6 @@ public class BooknoteController {
 		e.printStackTrace();
 		return "error";
 	}
-	
-	@RequestMapping("error")
-	public String error() {
-		return "error";
-	}
+
 
 }
