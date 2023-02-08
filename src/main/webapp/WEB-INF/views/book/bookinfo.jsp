@@ -297,7 +297,7 @@ span, #logoImg:hover {
 }
 
 .detail {
-	width: 978px;
+	width: 100%;
 	margin-top: 25px;
 	line-height: 30px;
 	overflow: hidden;
@@ -316,6 +316,7 @@ span, #logoImg:hover {
 
 .intro {
 	height: fit-content;
+	margin-right: 3px;
 }
 
 #intro_title {
@@ -342,6 +343,11 @@ span, #logoImg:hover {
 	bottom: 70%;
 }
 
+.input-box{
+	display: flex;
+	justify-content: space-between;
+}
+
 #input {
 	width: 90%;
 	height: 50px;
@@ -366,48 +372,36 @@ span, #logoImg:hover {
 	margin-top: 0px;
 }
 
-.r_title_box {
-	line-height: 30px;
+.r_box {
 	border-bottom: 1px solid #80808050;
+	display: flex;
+	flex-direction: column;
 }
 
-.r_writer_info>p, .r_content {
-	display: inline-flex;
+.r_writer_info>p{
 	margin: 10px;
 	font-size: small;
 }
 
 .r_writer_info {
-	height: 50px;
+	display: flex;
 }
 
 .r_contents {
-	display: inline-flex;
-}
-
-.r_content {
-	height: fit-content;
-	width: fit-content;
-	margin: 10px;
-	resize: none;
-	width: auto;
+	display: flex;
+	justify-content: space-evenly;
+	margin-bottom: 10px;
 }
 
 .r_like {
-	position: relative;
-	/* left: 73%;  */
-	left: 25px;
+	display: flex;
+	align-self: center;
+	color: #808080;
 }
 
 .r_like_icon {
-	position: relative;
-	top: 30%;
+	line-height: inherit;
 	font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48
-}
-
-.r_like_count {
-	position: relative;
-	top: 20%;
 }
 
 .r_content_blank {
@@ -416,19 +410,22 @@ span, #logoImg:hover {
 }
 
 .user_btn {
-	display: inline;
-	position: relative;
-	left: 70%;
+	margin-left: auto;
+	align-self: center;
 }
 
+
 .user_btn>button, .fin_btn, .cancel_btn {
+	cursor: pointer;
 	outline: none;
 	color: #5397fc;
 	border-radius: 5px;
 	background-color: white;
 	border: 1px solid #5397fc;
 }
-
+.cancel_btn{
+	margin-left: 4px;
+}
 .content {
 	border: none;
 	resize: none;
@@ -471,6 +468,7 @@ span, #logoImg:hover {
 /*  	justify-content: space-between;  */
 /*  }   */
 .post {
+	cursor: pointer;
 	padding-top: 40px;
 	overflow: hidden;
 }
@@ -598,33 +596,7 @@ span, #logoImg:hover {
 	/* margin-left: 38px; */
 }
 
-.w_title, .w_writer {
-	margin: 0px;
-	margin-left: 15px;
-}
 
-.w_title {
-	overflow: hidden;
-	height: 23px;
-	width: 120px;
-	font-weight: bold;
-	font-size: 15px;
-	text-align: center;
-	word-wrap: break-word;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.w_writer {
-	overflow: hidden;
-	height: 23px;
-	width: 120px;
-	text-align: center;
-	word-wrap: break-word;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	font-size: 14px;
-}
 
 .book_box>a {
 	text-decoration: none;
@@ -637,7 +609,15 @@ span, #logoImg:hover {
 	positon: relative;
 	top: 30%;
 }
-
+.footerHr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid rgb(216, 216, 216);
+	margin-top: 50px;
+	margin-bottom: 15px;
+	opacity: inherit;
+}
 .title {
 	/* border-bottom:1px solid #d4dde5; */
 	
@@ -855,8 +835,7 @@ span, #logoImg:hover {
 							<c:choose>
 								<c:when test="${not empty rlist}">
 									<c:forEach items="${rlist}" var="r">
-
-										<div class="r_title_box">
+										<div class="r_box">
 											<div class="r_writer_info">
 												<input type="hidden" value="${r.rv_seq}" class="rv_seq">
 												<p class="nick">${r.rv_writer_nn}</p>
@@ -878,7 +857,7 @@ span, #logoImg:hover {
 											</div>
 											<div class="r_contents">
 												<div class="r_content">
-													<div class="content">${r.rv_content}</div>
+													<div class="content" contenteditable="false">${r.rv_content}</div>
 												</div>
 
 
@@ -1003,11 +982,12 @@ span, #logoImg:hover {
 											<div class="book_box swiper-slide">
 
 												<a href="/book/selectBookinfo?b_isbn=${w.b_isbn}">
+													<script>
+														console.log("${w.b_img_url}");
+													</script>
 													<div class="book">
 														<img src="${w.b_img_url}" title="${w.b_title}"
 															class="w_img_url">
-														<p class="w_title">${w.b_title}</p>
-														<p class="w_writer">${w.b_writer}</p>
 													</div>
 												</a>
 											</div>
@@ -1032,7 +1012,7 @@ span, #logoImg:hover {
 		<!--body-->
 
 		<div class="footer">
-			<hr>
+			<hr class="footerHr">
 			<div class="f_header">
 				<a href="/"><img src="/resources/bookday_logotitle.png"></a>
 
@@ -1306,59 +1286,44 @@ $(document).ready(function(){
                     //리뷰 수정
                     $(document).on("click",".r_update",function() {
 
-                                /* var rv_seq=$(".r_update").data("seq");  */
-                                /* var rv_content=$(".r_update").data("content"); */
-
                          let rv_seq = $(this).attr("data-seq");
                          let b_isbn = $("#b_isbn").val();
+							let con = $(this).closest(".r_box").find(".content").html();
+                                console.log(con);
 
-                                console.log(rv_seq);
+                            $(this).closest(".r_box").find(".content").attr("contenteditable", true);
 
-                            $(this).closest(".r_title_box").find(".content").attr("readonly", false);
+							$(this).closest(".r_box").find(".r_update,.r_delete").css("display", "none");
 
-                             $(this).closest(".r_title_box").find(".r_update,.r_delete").css("display", "none");
-
-                                var input = $("<input>");
+                                let input = $("<input>");
                                 input.attr("type", "button");
                                 input.attr("data-seq", rv_seq);
                                 input.attr("data-isbn", b_isbn);
                                 input.val("완료");
                                 input.addClass("fin_btn");
 
-                                var input2 = $("<input>");
+
+
+                                let input2 = $("<input>");
                                 input2.attr("type", "button");
                                 input2.val("취소");
                                 input2.addClass("cancel_btn");
 
-                                $(this).closest(".r_title_box").find(
-                                        ".user_btn").append(input);
+                                $(this).closest(".r_box").find(
+                                        ".user_btn").append(input).append(input2);
 
-                                $(this).closest(".r_title_box").find(
-                                        ".user_btn").append(input2);
 
                             });
 
                     $(document).on("click",".fin_btn",function() {
-
-                                /* let rv_content=$(".r_content>input").val(); */
-
-                                /* $(".fin_btn").data("content",rv_content); */
-                                /* $(".fin_btn").data("seq",${r.rv_seq}); */
-
-                                /* let rv_seq = $(this).attr("data-seq"); */
                                 
                                 let rv_seq = $(this).closest(
-                                        ".r_title_box").find(".rv_seq")
+                                        ".r_box").find(".rv_seq")
                                         .val();
                                 let rv_content = $(this).closest(
-                                        ".r_title_box")
-                                        .find(".content").val();
+                                        ".r_box")
+                                        .find(".content").html();
                                 let b_isbn = $(this).attr("data-isbn");
-
-                                console.log(rv_content);
-                                console.log(rv_seq);
-
-                                console.log(b_isbn);
 
                                 $.ajax({
                                     url : "/book/updateReview",
@@ -1369,7 +1334,7 @@ $(document).ready(function(){
                                         "b_isbn" : b_isbn
                                     }
                                 }).done(function(resp) {
-                                    if (resp == "true") {
+                                    if (resp == 1) {
                                         location.reload();
                                     }
                                 })
@@ -1390,7 +1355,7 @@ $(document).ready(function(){
                               let b_isbn = $("#b_isbn").val();
                               
                               let rv_seq = $(this).closest(
-                              ".r_title_box").find(".rv_seq").val();
+                              ".r_box").find(".rv_seq").val();
                               
                               let r_like_icon =$(this).attr("data-count");
                           
@@ -1417,7 +1382,7 @@ $(document).ready(function(){
                                         let b_isbn = $("#b_isbn").val();
                                      
                                      let rv_seq = $(this).closest(
-                                     ".r_title_box").find(".rv_seq").val();
+                                     ".r_box").find(".rv_seq").val();
                                     
 
                                         

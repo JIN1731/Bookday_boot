@@ -10,11 +10,10 @@
 	<select id="selectList" resultType="kh.bookday.dto.BookDTO">
 		select b_img_url from book
 	</select>
-<!-- 수진 -->
+
 	<select id="selectBookListBySw" resultType="kh.bookday.dto.BookDTO">
-		select * from book where b_title like '%'||#{searchWord}||'%' or b_writer like '%'||#{searchWord}||'%' or b_genre like '%'||#{searchWord}||'%'		
+		select * from book where b_title like CONCAT('%',#{searchWord},'%') or b_writer like CONCAT('%',#{searchWord},'%') or b_genre like CONCAT('%',#{searchWord},'%')
 	</select>
-<!-- 수진 -->
 
 	<select id="selectBookByIsbn" resultType="kh.bookday.dto.BookDTO">
 		select * from book where b_isbn=#{b_isbn}
@@ -33,16 +32,163 @@
 	<!-- 신간 도서 출력 -->
 	 <select id="selectNewBooks" resultType="kh.bookday.dto.BookDTO">
 		select * from book order by b_publication_date desc limit 12
-	</select> 
-	
-	<!-- 함께 담은 책 출력 -->
-	<select id="selectWithBooks" resultType="kh.bookday.dto.BookDTO">
-		select * from book 
-		where b_isbn= any(select DISTINCT b_isbn from wishlist 
-		where <![CDATA[rownum <= 10]]> 
-		and id = any (select id from wishlist where b_isbn=#{b_isbn})
-		and b_isbn not in (#{b_isbn}))
 	</select>
-		
+
+
+	<select id="selectFvrBookById" resultType="kh.bookday.dto.BookDTO">
+		select * from book B
+
+		join
+
+		(select t.b_isbn, count(t.b_isbn) as SUM
+		from
+
+		(SELECT b_isbn FROM post WHERE p_writer_id = #{id}
+
+		union all
+
+		SELECT b_isbn FROM wishlist WHERE id = #{id}
+
+		union all
+
+		SELECT b_isbn FROM bookbag WHERE id = #{id}
+
+		union all
+
+		SELECT b_isbn FROM bookmark WHERE bm_writer_id = #{id}
+		union all
+
+		SELECT b_isbn FROM post_comment WHERE pc_writer_id = #{id}
+		union all
+
+		SELECT b_isbn FROM post_like WHERE id = #{id}
+		union all
+
+		SELECT b_isbn FROM rental WHERE id = #{id}
+		union all
+
+		SELECT b_isbn FROM review WHERE rv_writer_id = #{id}
+		union all
+
+		SELECT b_isbn FROM review_like WHERE id = #{id}
+
+		) as t
+
+		group by t.b_isbn
+
+		having SUM > 1
+
+		order by SUM desc
+
+		limit 5) B2 on B2.b_isbn = B.b_isbn;
+	</select>
+
+	<select id="selectFvrWriterById" resultType="kh.bookday.dto.BookDTO">
+		select b_writer, count(b_writer) CNT from book B
+
+		join
+
+		(select t.b_isbn, count(t.b_isbn) as SUM
+		from
+
+		(SELECT b_isbn FROM post WHERE p_writer_id = #{id}
+
+		union all
+
+		SELECT b_isbn FROM wishlist WHERE id = #{id}
+
+		union all
+
+		SELECT b_isbn FROM bookbag WHERE id = #{id}
+
+		union all
+
+		SELECT b_isbn FROM bookmark WHERE bm_writer_id = #{id}
+		union all
+
+		SELECT b_isbn FROM post_comment WHERE pc_writer_id = #{id}
+		union all
+
+		SELECT b_isbn FROM post_like WHERE id = #{id}
+		union all
+
+		SELECT b_isbn FROM rental WHERE id = #{id}
+		union all
+
+		SELECT b_isbn FROM review WHERE rv_writer_id = #{id}
+		union all
+
+		SELECT b_isbn FROM review_like WHERE id = #{id}
+
+		) as t
+
+		group by t.b_isbn
+
+		having SUM > 1
+
+		order by SUM desc
+
+		) B2 on B2.b_isbn = B.b_isbn
+
+		group by b_writer
+
+		order by CNT desc
+
+		limit 5;
+	</select>
+
+	<select id="selectFvrGenreById" resultType="kh.bookday.dto.BookDTO">
+		select b_genre, count(b_writer) CNT from book B
+
+		join
+
+		(select t.b_isbn, count(t.b_isbn) as SUM
+		from
+
+		(SELECT b_isbn FROM post WHERE p_writer_id = #{id}
+
+		union all
+
+		SELECT b_isbn FROM wishlist WHERE id = #{id}
+
+		union all
+
+		SELECT b_isbn FROM bookbag WHERE id = #{id}
+
+		union all
+
+		SELECT b_isbn FROM bookmark WHERE bm_writer_id = #{id}
+		union all
+
+		SELECT b_isbn FROM post_comment WHERE pc_writer_id = #{id}
+		union all
+
+		SELECT b_isbn FROM post_like WHERE id = #{id}
+		union all
+
+		SELECT b_isbn FROM rental WHERE id = #{id}
+		union all
+
+		SELECT b_isbn FROM review WHERE rv_writer_id = #{id}
+		union all
+
+		SELECT b_isbn FROM review_like WHERE id = #{id}
+
+		) as t
+
+		group by t.b_isbn
+
+		having SUM > 1
+
+		order by SUM desc
+
+		) B2 on B2.b_isbn = B.b_isbn
+
+		group by b_genre
+
+		order by CNT desc
+
+		limit 5;
+	</select>
 </mapper>
 

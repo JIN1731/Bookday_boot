@@ -279,6 +279,7 @@ span.size-30 {
 
 .favorite {
 	width: 100%;
+	margin-bottom: 20px;
 }
 .statTitle{
 margin-top: 40px;
@@ -301,6 +302,14 @@ margin-top: 40px;
 	width: 30%;
 }
 
+.fvrHr{
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid rgb(216, 216, 216);
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
 .fvrTxt {
 	display: flex;
 	justify-content: center;
@@ -332,6 +341,7 @@ display:none;
 
 .fvrBook, .fvrWriter, .fvrGenre{
 	cursor:pointer;
+	color: #5397fc;
 }
 
 
@@ -528,7 +538,7 @@ display:none;
 									</div>
 									<hr class="fvrHr">
 									<c:choose>
-										<c:when test="${empty data}">
+										<c:when test="${empty blist}">
 											<div class="fvrCon">
 												<p>가장 좋아하는 책이 아직 없습니다.</p>
 												<p>책을 읽고 포스트를 작성해보세요.</p>
@@ -536,9 +546,9 @@ display:none;
 										</c:when>
 										<c:otherwise>
 											<div class="fvrCon">
-											<c:forEach var="i" items="${data }">
+											<c:forEach var="b" items="${blist}">
 												<p>
-													<img src="${i.B_IMG_URL }" isbn="${i.B_ISBN}" class="fvrBook">
+													<img src="${b.b_img_url}" isbn="${b.b_isbn}" class="fvrBook">
 												</p>
 											</c:forEach>
 											</div>
@@ -551,7 +561,7 @@ display:none;
 									</div>
 									<hr class="fvrHr">
 									<c:choose>
-										<c:when test="${empty fvrWriter}">
+										<c:when test="${empty wlist}">
 											<div class="fvrCon">
 												<p>가장 좋아하는 작가가 아직 없습니다.</p>
 												<p>책을 읽고 포스트를 작성해보세요.</p>
@@ -559,8 +569,8 @@ display:none;
 										</c:when>
 										<c:otherwise>
 											<div class="fvrCon">
-											<c:forEach var="w" items="${fvrWriter }">
-												<p><span class="fvrWriter">${w.B_WRITER }</span></p>
+											<c:forEach var="w" items="${wlist }">
+												<p><span class="fvrWriter">${w.b_writer }</span></p>
 											</c:forEach>
 											</div>
 										</c:otherwise>
@@ -572,7 +582,7 @@ display:none;
 									</div>
 									<hr class="fvrHr">
 									<c:choose>
-										<c:when test="${empty fvrGenre}">
+										<c:when test="${empty glist}">
 											<div class="fvrCon">
 												<p>가장 좋아하는 장르가 아직 없습니다.</p>
 												<p>책을 읽고 포스트를 작성해보세요.</p>
@@ -580,8 +590,8 @@ display:none;
 										</c:when>
 										<c:otherwise>
 											<div class="fvrCon">
-											<c:forEach var="g" items="${fvrGenre }">
-												<p><span class="fvrGenre">${g.B_GENRE }</span></p>
+											<c:forEach var="g" items="${glist }">
+												<p><span class="fvrGenre">${g.b_genre }</span></p>
 											</c:forEach>
 											</div>
 										</c:otherwise>

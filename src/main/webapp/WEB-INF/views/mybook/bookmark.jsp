@@ -405,8 +405,12 @@ span.size-30 {
 }
 
 .middleHr {
-	margin-top: 50px;
-	margin-bottom: 50px;
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid rgb(216, 216, 216);
+	margin-top: 15px;
+	margin-bottom: 15px;
 }
 
 /* contentsBodySearchBookmark */
@@ -504,7 +508,12 @@ span.size-30 {
 	height: auto;
 	width: 85%;
 }
-
+.bookmarkHr{
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid rgb(216, 216, 216);
+}
 .bookmarkBookInfo {
 	display:flex;
 	justify-content: space-between;
@@ -516,6 +525,7 @@ span.size-30 {
 }
 .bookmarkWritedate {
 	font-size: 12px;
+	min-width: max-content;
 }
 
 .bookmarkContent {
@@ -746,9 +756,9 @@ span.size-30 {
 						<c:choose>
 							<c:when test="${empty list}">
 								<div class="empty">
-								<hr>
+								<hr class="bookmarkHr">
 								<div class="emptyContents">북마크가 없습니다.</div>
-								<hr>
+								<hr class="bookmarkHr">
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -765,11 +775,12 @@ span.size-30 {
 										</div>
 										<div class="bookmarkContentsTxt">
 											<div class="bookmarkBookInfo">
-											<div class="bookmarkBookTxt" isbn="${bm.b_isbn }"><${bm.b_title
-												}>&nbsp${bm.b_writer }</div>
+											<div class="bookmarkBookTxt" isbn="${bm.b_isbn }">${bm.b_title
+												}
+													<br>${bm.b_writer }</div>
 											<span class="bookmarkWritedate"><fmt:formatDate value="${bm.bm_write_date }"
 														pattern="yyyy.MM.DD HH:mm" /></span></div>
-											<hr>
+											<hr class="bookmarkHr">
 											<div class="bookmarkContent">${bm.bm_content}</div>
 																					<div class="bookmarkContentsBtn">
 <!-- 											<button class="updBookmarkBtn">수정</button> -->
@@ -896,36 +907,52 @@ span.size-30 {
 			});
 			$("#bookmarkBookSearchWord").on("keydown", function(e){
 				if(e.keyCode == 13) {
-					var searchWord = $("#bookmarkBookSearchWord").val();
+					let searchWord = $("#bookmarkBookSearchWord").val();
 					$("#bookmarkBookSearchWord").val("");
 					window.open("/book/toBookSearchPop?searchWord=" + searchWord, "", "width=600,height=600");
 				}
 			});		
 			$(".bookmarkBookSearchBtn").on("click", function() {
-				var searchWord = $("#bookmarkBookSearchWord").val();
+				let searchWord = $("#bookmarkBookSearchWord").val();
 				$("#bookmarkBookSearchWord").val("");
 				window.open("/book/toBookSearchPop?searchWord=" + searchWord, "", "width=600,height=600");
 			});
 			$("#bookmarkSearchWord").on("keydown", function(e){
 				if(e.keyCode == 13) {
-					var searchWord = $("#bookmarkSearchWord").val();
+					let searchWord = $("#bookmarkSearchWord").val();
 					location.href = "/bookmark/selectBookmarkListBySw?searchWord=" + searchWord;
 				}
 			});		
 			$(".bookmarkSearchBtn").on("click", function() {
-				var searchWord = $("#bookmarkSearchWord").val();
+				let searchWord = $("#bookmarkSearchWord").val();
 				location.href = "/bookmark/selectBookmarkListBySw?searchWord=" + searchWord;
 			});
             $(document).on("click", ".delBookmarkBtn", function () {
-                var bm_seq = $(this).closest(".bookmarkContents").attr("seq");
-
-                if(confirm("북마크를 삭제하시겠습니까?")){
-					location.href="/bookmark/deleteBookmarkBySeq?bm_seq="+bm_seq;
-				}else{
-					location.reload();
+				let bm_seq = $(this).closest(".bookmarkContents").attr("seq");
+				let bm = $(this).closest(".bookmarkContents");
+				if (confirm("북마크를 삭제하시겠습니까?")) {
+					$.ajax({
+						url: "/bookmark/deleteBookmark",
+						type: "post",
+						data: {"bm_seq": bm_seq}
+					}).done(function (data) {
+						if (data) {
+							bm.remove();
+							$.ajax({
+								url: "/bookmark/selectBookmark"
+							}).done(function (res){
+								console.log(res);
+								if(res==0){
+									location.reload();
+								}
+							})
+						} else {
+							location.href = "error";
+						}
+					})
 				}
+			})
 
-            });
             $('.insertbookmarkContentBox').keyup(function () {
                 let bookmark = $(this).html();
 
@@ -935,7 +962,6 @@ span.size-30 {
                 } else {
                     $('.textCount').text(bookmark.length + '자');
                 }
-				console.log(bookmark.length)
                 // 글자수 제한
                 if (bookmark.length > 200) {
                     // 200자 부터는 타이핑 되지 않도록
@@ -1003,13 +1029,11 @@ span.size-30 {
 
                 }
             function bookmarkList(lastBm_seq) {
-            	console.log(lastBm_seq)
 
                 $.getJSON("/bookmark/selectBmListByBmseq", { "bm_seq": lastBm_seq })
                     .done(res => {
                         if (res != null) {
                             setBookmarkPrepend(res);
-							console.log(res)
                         }
                     })
 

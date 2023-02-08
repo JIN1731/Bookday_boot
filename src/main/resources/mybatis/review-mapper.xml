@@ -8,7 +8,7 @@
 	</select>
 	
 	<insert id="insertReview">
-		insert into review(rv_seq,rv_writer_id,rv_writer_nn,rv_write_date,rv_content,b_isbn) values(review_seq.NEXTVAL,#{rv_writer_id},#{rv_writer_nn},sysdate,#{rv_content},#{b_isbn})
+		insert into review(rv_seq, rv_writer_id, rv_writer_nn, rv_write_date, rv_content, b_isbn) values(0, #{rv_writer_id}, #{rv_writer_nn}, now(), #{rv_content}, #{b_isbn})
 	</insert>
 	
 	<delete id="deleteReview">
@@ -28,7 +28,7 @@
 	</select>
 	
 	<insert id="insertReviewLike">
-		insert into review_like values(review_like_seq.nextval, #{rv_seq}, #{id}, #{b_isbn})
+		insert into review_like values(0, #{rv_seq}, #{id}, #{b_isbn})
 	</insert>
 	
 	<delete id="deleteReviewLike">

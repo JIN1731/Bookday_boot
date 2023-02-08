@@ -1,5 +1,6 @@
 package kh.bookday.dao;
 
+import kh.bookday.dto.BookDTO;
 import kh.bookday.dto.WishlistDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,10 @@ public class WishlistDAO {
 	// 위시리스트 추가
 	public void insertWishlist(WishlistDTO dto) {
 		db.insert("Wishlist.insertWishlist", dto);
+	}
+
+	//해당 도서와 함께 담은 책 출력
+	public List<WishlistDTO> selectWithBooks(WishlistDTO dto) {
+		return db.selectList("Wishlist.selectWithBooks", dto);
 	}
 }

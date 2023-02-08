@@ -30,8 +30,8 @@ public class BookmarkDAO {
 		return db.selectList("Bookmark.selectBookmarkListBySw", param);
 	}
 	
-	public void deleteBookmark(int bm_seq) {
-		db.delete("Bookmark.deleteBookmarkBySeq", bm_seq);
+	public int deleteBookmark(BookmarkDTO dto) {
+		return db.delete("Bookmark.deleteBookmarkBySeq", dto);
 	}
 
 

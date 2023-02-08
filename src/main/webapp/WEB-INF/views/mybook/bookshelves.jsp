@@ -271,7 +271,7 @@
 			width: 100px;
 		}
 
-		#profile {
+		#profile_img {
 			border-radius: 50%;
 			box-shadow: 2px 2px 2px 2px #80808050;
 		}
@@ -545,7 +545,7 @@
 			<div class="contentsHeader">
 				<div id="contentsHeaderImg">
 					<img src="/resources/profile/${dto.sysprofname}" width="100" height="100"
-						 id="profile">
+						 id="profile_img">
 				</div>
 				<div id="contentsHeaderTxt">${dto.nickname }님&nbsp책하루와&nbsp함께한&nbsp${dto.signup_date
 						} 하루</div>
@@ -695,6 +695,7 @@
 	})
 
 	$("#searchWord").on("keydown", function(e) {
+
 		if (e.keyCode == 13) {
 			$("#search").submit();
 		}
@@ -752,18 +753,10 @@
 	})
 
 
-	//포스트 프로필 사진 없을 때(수아)
-	$( document ).ready( function() {
-
-		if(${p.sysprofname == '0'}){
-
-			$(".profile_img").attr("src","/resources/basic.png");
-			return;
-		}
-	});
 
 
-	<!-- Ajax Infinite Scroll -->
+
+	// <!-- Ajax Infinite Scroll -->
 	// 	    let count = 1
 	// 	    $(window).scroll(function () {
 	// 	        let isScrollBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight

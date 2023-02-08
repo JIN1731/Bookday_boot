@@ -1,6 +1,8 @@
 package kh.bookday.service;
 
+import kh.bookday.dao.BookDAO;
 import kh.bookday.dao.PostDAO;
+import kh.bookday.dto.BookDTO;
 import kh.bookday.dto.PostDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,23 +15,24 @@ public class BookStatisticsService {
 
 	@Autowired
 	private PostDAO dao;
+
+	@Autowired
+	private BookDAO bdao;
 	
 
 	public List<PostDTO> selectPostListById(String id) {
 		return dao.selectPostListById(id);
 	}
 	
-	public List<HashMap<String, String>> selectFvrBookById(String id) {
-		return dao.selectFvrBookById(id);
-	}
-	
-	public List<String> selectFvrWriterById(String id) {
-		return dao.selectFvrWriterById(id);
+	public List<BookDTO> selectFvrBookById(String id) {
+		return bdao.selectFvrBookById(id);
 	}
 
-	public List<String> selectFvrGenreById(String id) {
-		return dao.selectFvrGenreById(id);
+	public List<BookDTO> selectFvrWriterById(String id) {
+		return bdao.selectFvrWriterById(id);
 	}
 
-
+	public List<BookDTO> selectFvrGenreById(String id) {
+		return bdao.selectFvrGenreById(id);
+	}
 }

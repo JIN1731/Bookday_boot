@@ -264,9 +264,6 @@ td {
 							var b_publication_date = $(this).closest("tr")
 									.find(".bookPublicationDate").html();
 
-							console.log(b_isbn + b_genre + b_img_url + b_title
-									+ b_writer + b_publisher
-									+ b_publication_date);
 							window.opener.initSearchBook(b_isbn, b_genre,
 									b_img_url, b_title, b_writer, b_publisher,
 									b_publication_date);

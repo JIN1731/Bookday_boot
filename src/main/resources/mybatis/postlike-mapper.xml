@@ -12,7 +12,7 @@
 	</select>
 	
 	<insert id="insertPostLike">
-		insert into post_like values (post_like_seq.nextval, #{id}, #{p_seq}, #{p_writer_id}, #{b_isbn})
+		insert into post_like values (0, #{id}, #{p_seq}, #{b_isbn})
 	</insert>
 	
 	<delete id="deletePostLike">

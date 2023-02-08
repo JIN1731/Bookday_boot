@@ -3,7 +3,9 @@ package kh.bookday.service;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import kh.bookday.dao.BookDAO;
+import kh.bookday.dao.WishlistDAO;
 import kh.bookday.dto.BookDTO;
+import kh.bookday.dto.WishlistDTO;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class BookService {
 	
 	@Autowired
 	private BookDAO dao;
+
+	@Autowired
+	private WishlistDAO wdao;
 	
 	// 도서 검색
 	public List<BookDTO> selectBookListBySw(String searchWord){
@@ -76,8 +81,11 @@ public class BookService {
 			}
 
 		//함께 담은 책 출력
-		public List<BookDTO> selectWithBooks(String b_isbn) {
-			return dao.selectWithBooks(b_isbn);
+		public List<WishlistDTO> selectWithBooks(String b_isbn, String id) {
+			WishlistDTO dto = new WishlistDTO();
+			dto.setId(id);
+			dto.setB_isbn(b_isbn);
+			return wdao.selectWithBooks(dto);
 		}
 
     public void setBookData() throws IOException {

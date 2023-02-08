@@ -1,6 +1,7 @@
 package kh.bookday.controller;
 
 import com.google.gson.Gson;
+import kh.bookday.dto.BookDTO;
 import kh.bookday.dto.MemberDTO;
 import kh.bookday.service.BookStatisticsService;
 import kh.bookday.service.MemberService;
@@ -38,19 +39,16 @@ public class BookStatisticsController {
 		MemberDTO dto = mservice.selectMemberById(id);
 		model.addAttribute("dto", dto);
 		
-		// 가장 좋아하는 책
-		List<HashMap<String, String>> data =  service.selectFvrBookById(id);
-		model.addAttribute("data", data);
-		System.out.println(data);
-		
-		// 가장 좋아하는 작가
-		List<String> fvrWriter = service.selectFvrWriterById(id);
-		model.addAttribute("fvrWriter", fvrWriter);
-		
-		// 가장 좋아하는 장르
-		List<String> fvrGenre = service.selectFvrGenreById(id);
-		model.addAttribute("fvrGenre", fvrGenre);
-		
+		// 가장 좋아하는
+		List<BookDTO> blist = service.selectFvrBookById(id);
+		model.addAttribute("blist", blist);
+
+		List<BookDTO> wlist = service.selectFvrWriterById(id);
+		model.addAttribute("wlist", wlist);
+
+		List<BookDTO> glist = service.selectFvrGenreById(id);
+		model.addAttribute("glist", glist);
+
 		return "mybook/bookstatistics";
 	}
 

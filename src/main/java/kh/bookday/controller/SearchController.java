@@ -26,7 +26,6 @@ public class SearchController {
 	@RequestMapping("toSearch")
 	public String toSearch(String searchWord, Model model) {
 
-		System.out.println(searchWord);
 		model.addAttribute("searchWord", searchWord);
 
 		// 책 출력

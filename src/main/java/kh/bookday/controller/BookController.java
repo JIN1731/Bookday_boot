@@ -80,7 +80,7 @@ public class BookController {
 		model.addAttribute("plist",plist);
 		
 		//함께 담은 책 리스트 출력
-		List<BookDTO> wlist=service.selectWithBooks(b_isbn);
+		List<WishlistDTO> wlist=service.selectWithBooks(b_isbn, id);
 		model.addAttribute("wlist",wlist);
 		
 		return "book/bookinfo";
@@ -113,16 +113,11 @@ public class BookController {
 	//리뷰 수정
 	@ResponseBody
 	@RequestMapping("updateReview")
-	public String updateReview(ReviewDTO dto) {
+	public int updateReview(ReviewDTO dto) {
 
 		dto.setRv_writer_id(String.valueOf(session.getAttribute("loginID")));
 
-		rservice.updateReview(dto);
-
-		System.out.println(dto.getRv_seq());
-		System.out.println(dto.getRv_content());
-
-		return "true";
+		return rservice.updateReview(dto);
 	}	
 
 	//리뷰 좋아요 누름

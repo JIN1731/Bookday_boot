@@ -19,7 +19,18 @@
 	
 	<!-- 위시리스트 추가 -->
 	<insert id="insertWishlist">
-		insert into wishlist values(wishlist_seq.nextval,#{id}, #{b_isbn}, #{b_img_url}, #{b_title}, #{b_writer}, #{b_genre}, default)
+		insert into wishlist values(0, #{id}, #{b_isbn}, #{b_img_url}, #{b_title}, #{b_writer}, #{b_genre}, default)
 	</insert>
+
+	<!-- 함께 담은 책 출력 -->
+	<select id="selectWithBooks" resultType="kh.bookday.dto.WishlistDTO">
+		select b_isbn, count(b_isbn), b_img_url
+		from wishlist
+		where id = ANY (select id from wishlist where b_isbn = #{b_isbn} and id != #{id})
+		and b_isbn != #{b_isbn}
+		group by b_isbn
+		order by count(b_isbn)
+		limit 10
+	</select>
 	
 </mapper>

@@ -177,6 +177,7 @@ span.size-40 {
 .signBox {
 	display: flex;
 	justify-content: flex-end;
+	text-align-last: end;
 }
 
 .signBox>a {

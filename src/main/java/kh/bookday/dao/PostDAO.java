@@ -1,5 +1,6 @@
 package kh.bookday.dao;
 
+import kh.bookday.dto.BookDTO;
 import kh.bookday.dto.PostDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,22 +92,6 @@ public class PostDAO {
 	// 포스트 리스트 마이북 포스트 페이지에 아이디로 출력
 	public List<PostDTO> selectPostListById(String id){
 		return db.selectList("Post.selectPostListById", id);
-	}
-	
-	//통계
-	// 통계 가장 좋아하는 책
-	public List<HashMap<String, String>> selectFvrBookById(String id) {
-		return db.selectList("Post.selectFvrBookById", id);
-	}
-	
-	// 통계 가장 좋아하는 작가
-	public List<String> selectFvrWriterById(String id) {
-		return db.selectList("Post.selectFvrWriterById", id);
-	}
-	
-	// 통계 좋아하는 장르
-	public List<String> selectFvrGenreById(String id) {
-		return db.selectList("Post.selectFvrGenreById", id);
 	}
 
 // 수진

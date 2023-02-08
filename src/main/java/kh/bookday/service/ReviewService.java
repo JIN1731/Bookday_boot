@@ -43,9 +43,9 @@ public class ReviewService {
 		}
 		
 		//해당 도서 리뷰 수정 
-		public void updateReview(ReviewDTO dto) {
+		public int updateReview(ReviewDTO dto) {
 
-			dao.updateReview(dto);
+			return dao.updateReview(dto);
 		}
 
 		//로그인 유저에 대한 해당 도서 리뷰들 좋아요 여부 파악

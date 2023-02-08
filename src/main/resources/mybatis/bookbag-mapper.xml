@@ -15,7 +15,7 @@
 	
 	<!-- 책 추가 --> 
 	<insert id="insertBookbag">
-		insert into bookbag values(bookbag_seq.nextval,#{id},#{b_isbn},#{b_img_url},#{b_title},#{b_writer},#{b_genre})
+		insert into bookbag values(0,#{id},#{b_isbn},#{b_img_url},#{b_title},#{b_writer},#{b_genre})
 	</insert>
 	
 	<!-- 책 출력 -->

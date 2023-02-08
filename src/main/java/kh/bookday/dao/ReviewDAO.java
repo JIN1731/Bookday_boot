@@ -32,8 +32,8 @@ public class ReviewDAO {
 		}
 		
 		//해당 도서 리뷰 수정
-		public void updateReview(ReviewDTO dto) {
-			db.update("Review.updateReview", dto);
+		public int updateReview(ReviewDTO dto) {
+			return db.update("Review.updateReview", dto);
 		}
 		
 		//리뷰 페이징

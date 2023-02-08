@@ -4,7 +4,7 @@
 <mapper namespace="Bookmark">
 
 	<insert id="insertBookmark">
-		insert into bookmark values (bookmark_seq.nextval, #{bm_writer_id}, #{b_isbn}, #{b_img_url}, #{b_title}, #{b_writer},#{b_genre}, sysdate, #{bm_content})
+		insert into bookmark values (0, #{bm_writer_id}, #{b_isbn}, #{b_img_url}, #{b_title}, #{b_writer},#{b_genre}, now(), #{bm_content})
 	</insert>
 	<select id="selectBookmarkListById" resultType="kh.bookday.dto.BookmarkDTO">
 		select * from bookmark where bm_writer_id = #{id} order by bm_seq desc
@@ -19,6 +19,7 @@
 	</select>
 	
 	<delete id="deleteBookmarkBySeq">
-		delete from bookmark where bm_seq = #{bm_seq}
+		delete from bookmark where bm_seq = #{bm_seq} and bm_writer_id = #{bm_writer_id}
 	</delete>
+
 </mapper>

@@ -144,6 +144,7 @@ span.size-40 {
 .signBox {
 	display: flex;
 	justify-content: flex-end;
+	text-align-last: end;
 }
 
 .signBox>a {
@@ -701,7 +702,7 @@ span.size-20 {
 								<div class="dyPostWrite">
 									작성&nbsp
 									<fmt:formatDate value="${dto.p_write_date }"
-										pattern="yyyy.MM.DD HH:mm" />
+										pattern="yyyy.MM.dd HH:mm" />
 								</div>
 								<span>&nbsp|&nbsp</span>
 								<div class="postViewCount">조회수&nbsp${dto.p_view_count }</div>

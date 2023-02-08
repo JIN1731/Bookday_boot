@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.awt.print.Book;
 import java.util.List;
 
 @Controller
@@ -85,16 +86,25 @@ public class BookmarkController {
 	}
 
 	
-	@GetMapping("deleteBookmark")
-	public String deleteBookmark(int bm_seq) {
+	@RequestMapping("deleteBookmark")
+	@ResponseBody
+	public int deleteBookmark(int bm_seq) {
 		
 		String id = String.valueOf(session.getAttribute("loginID"));
 
-		service.deleteBookmark(bm_seq);
-		
-		return "redirect:/bookmark/selectBookmarkListById";
+		return service.deleteBookmark(bm_seq, id);
 	}
-	
+
+	@RequestMapping("selectBookmark")
+	@ResponseBody
+	public int selectBookmark(){
+		String id = String.valueOf(session.getAttribute("loginID"));
+
+		List<BookmarkDTO> list = service.selectBookmarkListById(id);
+
+		return list.size();
+	}
+
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();

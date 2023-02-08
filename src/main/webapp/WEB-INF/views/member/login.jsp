@@ -220,7 +220,7 @@ hr {
 			<hr id="hr">
 			<div class="kakao_login">
 				<a class="p-2"
-					href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=5d39c4a90d2cd9ef1649a8e6108ba988&redirect_uri=http://13.125.80.112/member/kakaoLogin">
+					href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=5d39c4a90d2cd9ef1649a8e6108ba988&redirect_uri=http://3.34.217.163/member/kakaoLogin">
 					<img src="/resources/kakao_login_large_wide.png">
 				</a>
 			</div>

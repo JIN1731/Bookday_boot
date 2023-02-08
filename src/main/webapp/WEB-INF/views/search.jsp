@@ -368,7 +368,15 @@ text-align:right;
 .footer {
 	margin: 5px;
 }
-
+.footerHr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid rgb(216, 216, 216);
+	margin-top: 50px;
+	margin-bottom: 15px;
+	opacity: inherit;
+}
 .f_header {
 	display: inline-flex;
 	margin-top: 10px;
@@ -546,7 +554,7 @@ text-align:right;
 			</div>
 		</div>
 		<div class="footer">
-			<hr>
+			<hr class="footerHr">
 			<div class="f_header">
 				<a href="/"><img src="/resources/bookday_logotitle.png"></a>
 

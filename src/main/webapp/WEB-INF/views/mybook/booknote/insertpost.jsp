@@ -177,6 +177,7 @@
         .signBox {
             display: flex;
             justify-content: flex-end;
+            text-align-last: end;
         }
 
         .signBox > a {
@@ -441,7 +442,7 @@
             bottom: 5px;
             overflow: hidden;
             height: 40px;
-            width: 260px;
+            width: 261px;
             border: none;
             border-radius: 5px;
             box-shadow: 2px 2px 2px 2px #80808050;
@@ -669,7 +670,6 @@
                     function uploadSummernoteImageFile(file, el) {
                         data = new FormData();
                         data.append("file", file);
-                        console.log(file)
                         $.ajax({
                             data: data,
                             type: "POST",
@@ -678,7 +678,6 @@
                             enctype: 'multipart/form-data',
                             processData: false,
                             success: function (data) {
-                                console.log(data.url)
                                 $(el).summernote('editor.insertImage', data.url);
                             }
                         });
@@ -705,8 +704,6 @@
                         //값 가져오기
                         var summernoteContent = $('#summernote')
                             .summernote('code'); //썸머노트(설명)
-                        console.log("summernoteContent : "
-                            + summernoteContent);
                         var b_isbn = $(".searchResultBookInfo").attr("isbn");
                         var b_img_url = $("#b_img_url").attr("src");
                         var b_title = $("#b_title").html();
@@ -1019,7 +1016,7 @@
             },
 
             function (start, end, label) {
-                console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+                // console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
             });
     });
 
@@ -1086,7 +1083,6 @@
         } else {
             $('.textCount').text(title.length + '자');
         }
-        console.log(title.length)
         // 글자수 제한
         if (title.length > 100) {
             // 100자 부터는 타이핑 되지 않도록

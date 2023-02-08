@@ -89,12 +89,12 @@ div {
 	</div>
 	<script>
 		$("#bookbag").on("click", function() {
-			opener.location.href="/delivery/selectBookbagListById"; 
-			window.close();
+			window.opener.location.href="/delivery/selectBookbagListById";
+			window.self.close();
 		})
 		$("#close").on("click", function() {
 			opener.parent.location.reload();
-			window.close();
+			window.self.close();
 		})
 		$(window).bind("beforeunload", function (e){
             opener.parent.location.reload();

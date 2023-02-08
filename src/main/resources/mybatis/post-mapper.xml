@@ -5,9 +5,9 @@
 
 <!-- 수진 -->
 	<insert id="insertPost">
-		insert into post values(post_seq.nextval, #{p_writer_id}, #{sysprofname}, #{b_isbn}, #{b_img_url}, #{b_title}, #{b_writer}, #{b_genre}, #{b_publisher}, #{b_publication_date}, #{dyst_read}, #{dyfn_read}, #{p_writer_nn}, now(), #{p_title}, #{p_content}, 0, 0, 0)
+		insert into post values(0, #{p_writer_id}, #{sysprofname}, #{b_isbn}, #{b_img_url}, #{b_title}, #{b_writer}, #{b_genre}, #{b_publisher}, #{b_publication_date}, #{dyst_read}, #{dyfn_read}, #{p_writer_nn}, now(), #{p_title}, #{p_content}, 0, 0, 0)
 		<selectKey order="AFTER" keyProperty="p_seq" resultType="int">
-			select post_seq.currval from dual
+			select max(p_seq) from post where #{p_writer_id}
 		</selectKey>
 	</insert>
 		
@@ -74,46 +74,6 @@
 	<delete id="deletePostByPseq">
 		delete from post where p_seq = #{p_seq}
 	</delete>
-	
-	<select id="selectFvrBookById" resultType="HashMap">
-		select b_img_url, b_isbn
-		from post 
-		where p_writer_id = #{id} 
-		group by b_img_url, b_isbn 
-		having count(*) = (select max(c) 
-		from (select b_isbn, count(b_isbn) as c 
-		from post where p_writer_id = #{id} 
-		group by b_isbn 
-		having count(b_isbn)>1))
-	</select>
-	
-	<select id="selectFvrWriterById" resultType="HashMap">
-		select b_writer 
-		from post 
-		where p_writer_id = #{id} 
-		group by b_writer 
-		having count(*) = (select max(c) 
-		from (select b_writer, count(b_writer) as c 
-		from post 
-		where p_writer_id = #{id} 
-		group by b_writer
-		having count(b_writer)>1))
-		order by b_writer
-	</select>
-		
-	<select id="selectFvrGenreById" resultType="HashMap">
-		select b_genre 
-		from post 
-		where p_writer_id = #{id} 
-		group by b_genre 
-		having count(*) = (select max(c) 
-		from (select b_genre, count(b_genre) as c 
-		from post 
-		where p_writer_id = #{id} 
-		group by b_genre
-		having count(b_genre)>1))
-		order by b_genre
-	</select>
 	
 	<select id="selectPostListById" resultType="kh.bookday.dto.PostDTO">
 		select * from post where p_writer_id = #{id}

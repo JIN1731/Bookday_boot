@@ -143,6 +143,7 @@ span.size-40 {
 .signBox {
 	display: flex;
 	justify-content: flex-end;
+	text-align-last: end;
 }
 
 .signBox>a {
@@ -695,7 +696,7 @@ span.size-45 {
 												</div>
 												<div class="postWritedate">
 													<fmt:formatDate value="${i.p_write_date }"
-														pattern="yyyy.MM.DD HH:mm" />
+														pattern="yyyy.MM.dd HH:mm" />
 												</div>
 											</div>
 											<hr class="postlistHr">
