@@ -1,15 +1,22 @@
-# Bookday 수정 중
+# Bookday 수정
+> Url
+* [3.34.217.163](http://3.34.217.163)
+<br>
+
 > Framework
-* Spring Mvc -> Spring Boot (완료)
+* Spring Mvc -> Spring Boot 
 <br>
 
 > Database
-* Oracle -> MySQL (수정 중)
-* AWS EC2 -> RDS (완료)
+* Oracle -> MySQL 
+* AWS EC2 -> RDS 
 <br>
 
 > Server
 * AWS
+<br>
 
-> Url
-* [3.34.217.163](http://3.34.217.163)
+
+>IDE
+* Eclipse -> IntelliJ
+
