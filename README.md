@@ -7,6 +7,10 @@
 * Spring Mvc -> Spring Boot 
 <br>
 
+> Build Tool
+* Maven -> Gradle 
+<br>
+
 > Database
 * Oracle -> MySQL 
 * AWS EC2 -> RDS 
@@ -15,7 +19,6 @@
 > Server
 * AWS
 <br>
-
 
 >IDE
 * Eclipse -> IntelliJ
