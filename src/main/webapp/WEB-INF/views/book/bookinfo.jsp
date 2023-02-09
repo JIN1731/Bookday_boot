@@ -228,7 +228,9 @@ span, #logoImg:hover {
 	margin: 20px;
 	margin-top: 5px;
 }
-
+#b_genre, #b_writer, #b_publisher{
+	cursor: pointer;
+}
 .b_etc {
 	margin-bottom: 25px;
 	width: fit-content;
@@ -1420,6 +1422,19 @@ function alert_open() {
     alert("로그인 후 이용해주세요.");
     $("#input").val("");
 }
+	$("#b_genre").on("click", function (){
+		let bookGenre = $(this).html();
+		location.href = "/search/toSearch?searchWord="+bookGenre;
+	});
+
+	$("#b_writer").on("click", function (){
+		let bookWriter = $(this).html();
+		location.href = "/search/toSearch?searchWord="+bookWriter;
+	});
+	$("#b_publisher").on("click", function (){
+		let bookPublisher = $(this).html();
+		location.href = "/search/toSearch?searchWord="+bookPublisher;
+	});
 </script>
 </body>
 </html>

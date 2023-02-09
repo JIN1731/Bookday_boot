@@ -12,7 +12,7 @@
 	</select>
 
 	<select id="selectBookListBySw" resultType="kh.bookday.dto.BookDTO">
-		select * from book where b_title like CONCAT('%',#{searchWord},'%') or b_writer like CONCAT('%',#{searchWord},'%') or b_genre like CONCAT('%',#{searchWord},'%') order by b_ranking
+		select * from book where b_title like CONCAT('%',#{searchWord},'%') or b_writer like CONCAT('%',#{searchWord},'%') or b_genre like CONCAT('%',#{searchWord},'%') or b_publisher like CONCAT('%',#{searchWord},'%') order by b_ranking
 	</select>
 
 	<select id="selectBookByIsbn" resultType="kh.bookday.dto.BookDTO">

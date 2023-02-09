@@ -81,7 +81,7 @@
 
 	<!-- 검색 시 포스트 출력 -->
 	<select id="selectPostListBySw" resultType="kh.bookday.dto.PostDTO">
-		select * from post where b_title like CONCAT('%',#{searchWord},'%') or b_writer like CONCAT('%',#{searchWord},'%') or b_genre like CONCAT('%',#{searchWord},'%')
+		select * from post where b_title like CONCAT('%',#{searchWord},'%') or b_writer like CONCAT('%',#{searchWord},'%') or b_genre like CONCAT('%',#{searchWord},'%') or p_writer_nn like CONCAT('%',#{searchWord},'%') or p_title like CONCAT('%',#{searchWord},'%') or p_content like CONCAT('%',#{searchWord},'%') order by p_seq desc
 	</select>
 	
 

@@ -368,9 +368,10 @@ span.size-30 {
 .bookPublish {
 	font-size: 13px;
 	color: #808080;
+}
+.b_publisher{
 	cursor: pointer;
 }
-
 .dates {
 	display: flex;
 	flex-direction: column;
@@ -727,7 +728,7 @@ span.size-20 {
 										<p>
 										<div class="bookWriter">${dto.b_writer }</div>
 										</p>
-										<div class="bookPublish">${dto.b_publisher }&nbsp|&nbsp${dto.b_publication_date
+										<div class="bookPublish"><span class="b_publisher">${dto.b_publisher }</span>&nbsp|&nbsp${dto.b_publication_date
 											}</div>
 									</div>
 								</div>
@@ -784,7 +785,7 @@ span.size-20 {
 																}</div>
 															<c:if test="${loginID == i.pc_writer_id }">
 																<div class="pcBtn">
-																	<button class="updCBtn">수정</button>
+<%--																	<button class="updCBtn">수정</button>--%>
 																	<button class="delCBtn">삭제</button>
 																</div>
 															</c:if>
@@ -929,6 +930,11 @@ span.size-20 {
 					location.href = "/search/toSearch?searchWord="+bookWriter;
 				});
 
+				$(".b_publisher").on("click", function (){
+					let b_publisher = $(this).html();
+					location.href = "/search/toSearch?searchWord="+b_publisher;
+				});
+
                 $("#delPBtn").on("click", function(){
                 	
             		if(confirm("포스트를 삭제하시겠습니까?")){
@@ -1005,11 +1011,12 @@ span.size-20 {
                             
                             if ('<%=(String) session.getAttribute("loginID")%>' == res[i].pc_writer_id) {
                                 let pcBtn = $("<div>").addClass("pcBtn");
-                                let updatePcBtn = $("<button>").addClass("updCBtn").attr("type", "button").text("수정");
+                                // let updatePcBtn = $("<button>").addClass("updCBtn").attr("type", "button").text("수정");
                                 let deletePcBtn = $("<button>").addClass("delCBtn").attr("type", "button").text("삭제");
 
-                                pcBtn.append(updatePcBtn).append(deletePcBtn);
-                                pcContentsInfo.append(pcBtn);
+                                // pcBtn.append(updatePcBtn).append(deletePcBtn);
+								pcBtn.append(deletePcBtn);
+								pcContentsInfo.append(pcBtn);
                             }
                             pcContentsTxt.append(pcContentsInfo);
                             pcContentsTxt.append(pcContent);

@@ -94,8 +94,6 @@ public class BookService {
 				"authKey=c3961a3562330baad3bc05913f5ffc62a973821fd682747cb582763296f3f9c3&pageNo=1&" +
 				"age=20&startDt=2022-01-01&format=json&pageSize=100").ignoreContentType(true).get().text();
 
-		System.out.println(bookList);
-
 		Gson g = new Gson();
 
 		HashMap<Object, HashMap<Object, Object>> res = g.fromJson(bookList, new TypeToken<HashMap<Object,HashMap<Object, Object>>>(){}.getType());
