@@ -351,12 +351,12 @@
 				margin-right: 0px !important;
 			}
 			.post {
-				cursor: pointer;
 				padding-top: 40px;
 				overflow: hidden;
 			}
 
 			.post-main {
+				cursor: pointer;
 				overflow: hidden;
 				width: 250px;
 				height: 300px;
@@ -748,7 +748,7 @@
 							<c:when test="${not empty plist}">
 								<c:forEach items="${plist}" var="p">
 									<div class="swiper-slide">
-										<div class="post-main">
+										<div class="post-main" seq="${p.p_seq}">
 											<!-- 									<br> -->
 											<div class="post-main-top">
 												<div class="profile-img-div">
@@ -765,9 +765,7 @@
 											<hr>
 											<div class="p-title" title="${p.p_title }">${p.p_title }</div>
 											<div class="p-content">
-												<a href="/booknote/selectPostByPseq?p_seq=${p.p_seq }"
-												   style="text-decoration-line: none; color: black;"
-												   id="post-link">${p.p_content }</a>
+												${p.p_content }
 											</div>
 										</div>
 									</div>
@@ -888,6 +886,17 @@
 			return;
 		}
 	});
+
+	$(document).on("click", ".post-main", function (){
+		let seq = $(this).attr("seq");
+
+		if(${loginID == null}) {
+			location.href = "/member/toLogin";
+		}else {
+			location.href="/booknote/selectPostByPseq?p_seq="+seq;
+		}
+	})
+
 
 	//스크롤 이벤트 라이브러리(AOS)선언
 	$( document).ready( function() {
