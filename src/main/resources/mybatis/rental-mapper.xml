@@ -3,7 +3,6 @@
 
 <mapper namespace="Rental">
 
-	<!-- 수진 -->
 	<select id="selectRentalListById" resultType="kh.bookday.dto.RentalDTO">
 		select * from rental where id = #{id} and rt_return_date>now() order by rt_rental_date desc
 	</select>
@@ -11,7 +10,6 @@
 	<select id="selectRentalCountById" resultType="int">
 		select count(*) from rental where id = #{id} and rt_return_date>now()
 	</select>
-	<!-- 수진 -->
 
 
 	<!-- 대여테이블 입력 -->

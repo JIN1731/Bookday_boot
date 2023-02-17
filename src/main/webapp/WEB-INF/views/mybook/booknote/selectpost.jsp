@@ -329,6 +329,7 @@
 		}
 
 		.postTitle {
+			word-wrap:break-word;
 			text-align: center;
 			font-size: 22px;
 			margin-top: 30px;
@@ -406,6 +407,7 @@
 		}
 
 		.postContent {
+			word-wrap:break-word;
 			padding: 10px 10px 10px 10px;
 		}
 

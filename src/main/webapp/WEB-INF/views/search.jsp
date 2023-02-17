@@ -273,6 +273,7 @@ text-align:right;
 }
 
 .post-main {
+	cursor: pointer;
 	overflow: hidden;
 	width: 250px;
 	height: 300px;
@@ -286,34 +287,46 @@ text-align:right;
 }
 
 .post-main-top {
-	overflow: hidden;
+display: flex;
 }
 
+.writer{
+	display: flex;
+	flex-direction: column;
+}
+.pb_img_url{
+	width: 34px;
+	height: 51px;
+	box-shadow: 2px 2px 2px 2px #80808050;
+
+}
 .profile-img-div {
 	float: left;
 	padding-right: 10px;
 	padding-left: 10px;
 }
 
-.profile-img {
+.profile_img {
 	width: 55px;
 	height: auto;
 	border-radius: 50%;
+	box-shadow: 2px 2px 2px 2px #80808050;
+
 }
 
 .p-writer {
-	padding-top: 10px;
-	height: 27px;
-	overflow: hidden;
-	width: 150px;
+	padding-top: 4px;
+	/*  	overflow: hidden;  */
+	width: 120px;
 	display: inline-block;
 	font-weight: bold;
 	font-size: 15px;
 	word-wrap: break-word;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	height: 32px;
+	line-height: 32px;
 }
-
 .p-like {
 	overflow: hidden;
 }
@@ -334,7 +347,12 @@ text-align:right;
 	padding-left: 3px;
 	font-size: 13px;
 }
-
+.postHr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #5397fc50;
+}
 .p-title {
 	overflow: hidden;
 	width: 100%;
@@ -351,16 +369,15 @@ text-align:right;
 }
 
 .p-content {
+	word-wrap: break-word;
 	overflow: hidden;
 	font-size: 15px;
 	padding-left: 10px;
 	padding-right: 10px;
 	display: -webkit-box;
-	width: 100%;
-	height: 152px;
-	-webkit-line-clamp: 7;
+	line-height: 17px;
+	-webkit-line-clamp: 8;
 	-webkit-box-orient: vertical;
-	/* 	word-wrap: break-word; */
 	text-overflow: ellipsis;
 }
 
@@ -528,24 +545,35 @@ text-align:right;
 							없습니다.</div>
 					</c:when>
 					<c:otherwise>
-						<c:forEach var="post" items="${plist}">
-							<div class="post-main">
+						<c:forEach var="p" items="${plist}">
+							<div class="post-main" seq="${p.p_seq}">
 								<br>
 								<div class="post-main-top">
 									<div class="profile-img-div">
-										<img src="/resources/profile/${post.sysprofname}" class="profile-img">
+										<img src="/resources/profile/${p.sysprofname}"
+											 class="profile_img">
 									</div>
-									<div class="p-writer">${post.p_writer_nn }</div>
-									<div class="p-like">
-										<div class="like-icon material-symbols-outlined"
-											data-count="0">thumb_up</div>
-										<div class="like-text">${post.p_like_count }</div>
+									<div class="writer">
+										<div class="p-writer">${p.p_writer_nn }</div>
+										<div class="p-like">
+											<div class="like-icon material-symbols-outlined"
+												 data-count="0">thumb_up</div>
+											<div class="like-text">${p.p_like_count }</div>
+										</div>
+									</div>
+									<div class="bookinfo">
+										<div class="pb-img">
+											<a href="/book/selectBookinfo?b_isbn=${p.b_isbn}"><img
+													src="${p.b_img_url}" class="pb_img_url"></a>													</div>
+											<%--													<div class="pb-title">--%>
+											<%--														${p.b_title}--%>
+											<%--													</div>--%>
 									</div>
 								</div>
-								<hr style="border-top: 1px">
-								<div class="p-title" title="${post.p_title }">${post.p_title }</div>
+								<hr class="postHr">
+								<div class="p-title" title="${p.p_title }">${p.p_title }</div>
 								<div class="p-content">
-									<a href="/booknote/selectPostByPseq?p_seq=${post.p_seq }" style="text-decoration-line: none; color: black;" id="post-link">${post.p_content }</a>
+									${p.p_content }
 								</div>
 							</div>
 						</c:forEach>
@@ -635,7 +663,15 @@ text-align:right;
          location.href = "/member/toMypage";
          }
       })
-      
+		$(document).on("click", ".post-main", function (){
+			let seq = $(this).attr("seq");
+
+			if(${loginID == null}) {
+				location.href = "/member/toLogin";
+			}else {
+				location.href="/booknote/selectPostByPseq?p_seq="+seq;
+			}
+		})
        //footer: 사업자 정보 토글 기능
        $("#business_info_text").hide();
 

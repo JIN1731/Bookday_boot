@@ -45,9 +45,9 @@ public class MemberDAO {
 		return db.selectOne("Member.selectIdByPhone", phone);
 	}
 
-	// 이메일로 카톡 로그인 여부 확인하는 로직
-	public boolean selectByEmail(String email) {
-		return db.selectOne("Member.selectByEmail", email);
+	// 카카오 부여 아이디로 카톡 로그인 여부 확인하는 로직
+	public boolean selectByKid(String id) {
+		return db.selectOne("Member.selectByKid", id);
 	}
 
 	//비번 재설정

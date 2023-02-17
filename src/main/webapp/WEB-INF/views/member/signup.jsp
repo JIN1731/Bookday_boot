@@ -152,8 +152,8 @@ position:absolute;
 					<span class="material-symbols-outlined" id="check_icon2">check</span>
 				</div>
 				<div class="box">
-					<input type="text" placeholder="닉네임(2-10자 이내)" name="nickname" id="nickname"
-						minlength="2" maxlength="10">
+					<input type="text" placeholder="닉네임(2-5자 이내)" name="nickname" id="nickname"
+						minlength="2" maxlength="5">
 						<span class="material-symbols-outlined" id="check_icon3">check</span>
 					<div id="nk_result"></div>
 				</div>

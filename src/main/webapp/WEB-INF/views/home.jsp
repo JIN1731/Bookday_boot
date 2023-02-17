@@ -374,10 +374,20 @@
 
 			.post-main-top {
 				padding-top: 15px;
-				overflow: hidden;
+				display: flex;
 				line-height: 10px;
 			}
 
+			.writer{
+				display: flex;
+				flex-direction: column;
+			}
+			.pb_img_url{
+				width: 34px;
+				height: 51px;
+				box-shadow: 2px 2px 2px 2px #80808050;
+
+			}
 			.profile-img-div {
 				float: left;
 				padding-right: 10px;
@@ -388,12 +398,14 @@
 				width: 55px;
 				height: auto;
 				border-radius: 50%;
+				box-shadow: 2px 2px 2px 2px #80808050;
+
 			}
 
 			.p-writer {
 				padding-top: 4px;
 				/*  	overflow: hidden;  */
-				width: 150px;
+				width: 120px;
 				display: inline-block;
 				font-weight: bold;
 				font-size: 15px;
@@ -426,6 +438,13 @@
 				font-size: 13px;
 			}
 
+			.postHr {
+				display: block;
+				height: 1px;
+				border: 0;
+				border-top: 1px solid #5397fc50;
+			}
+
 			.p-title {
 				overflow: hidden;
 				width: 100%;
@@ -442,14 +461,14 @@
 			}
 
 			.p-content {
+				word-wrap: break-word;
 				overflow: hidden;
 				font-size: 15px;
 				padding-left: 10px;
 				padding-right: 10px;
 				display: -webkit-box;
-				height: 145px;
 				line-height: 17px;
-				-webkit-line-clamp: 7;
+				-webkit-line-clamp: 8;
 				-webkit-box-orient: vertical;
 				text-overflow: ellipsis;
 			}
@@ -755,14 +774,24 @@
 													<img src="/resources/profile/${p.sysprofname}"
 														 class="profile_img">
 												</div>
+												<div class="writer">
 												<div class="p-writer">${p.p_writer_nn }</div>
 												<div class="p-like">
 													<div class="like-icon material-symbols-outlined"
 														 data-count="0">thumb_up</div>
 													<div class="like-text">${p.p_like_count }</div>
 												</div>
+												</div>
+												<div class="bookinfo">
+													<div class="pb-img">
+														<a href="/book/selectBookinfo?b_isbn=${p.b_isbn}"><img
+																src="${p.b_img_url}" class="pb_img_url"></a>													</div>
+<%--													<div class="pb-title">--%>
+<%--														${p.b_title}--%>
+<%--													</div>--%>
+												</div>
 											</div>
-											<hr>
+											<hr class="postHr">
 											<div class="p-title" title="${p.p_title }">${p.p_title }</div>
 											<div class="p-content">
 												${p.p_content }
