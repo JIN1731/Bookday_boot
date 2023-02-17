@@ -141,6 +141,7 @@
 			.signBox {
 				display: flex;
 				justify-content: flex-end;
+				text-align-last: end;
 			}
 			.signBox>a {
 				margin: 5px;
