@@ -429,9 +429,10 @@
 		}
 
 		.postTitle {
-			width: 80%;
+			width: 84%;
 			font-size: 17px;
 			font-weight: 200;
+			word-wrap: break-word;
 		}
 
 		a {
@@ -444,7 +445,7 @@
 		}
 
 		.postWritedate {
-			width: 20%;
+			width: 16%;
 			font-size: 12px;
 			display: flex;
 			justify-content: flex-end;
