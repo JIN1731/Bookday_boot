@@ -126,5 +126,6 @@
 * My Page
   * 회원 정보, 구독 여부 출력
   * 회원 정보 수정 가능, 프로필 사진도 수정 가능, 아이디로 사용하는 휴대폰 번호도 인증번호 확인 후 수정 가능(고유 아이디로 UUID를 부여했기 때문)
+![3 34 217 163_member_toMypage](https://user-images.githubusercontent.com/116864859/220219095-7ab01bdf-7a93-4608-80a4-7dee917c121f.png)
 ![localhost_member_toUpdateMemInfo (2)](https://user-images.githubusercontent.com/116864859/220033267-de38950e-f995-4578-a080-4de90245cf51.png)
 
