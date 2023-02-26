@@ -308,7 +308,7 @@ display: flex;
 
 .profile_img {
 	width: 55px;
-	height: auto;
+	height: 55px;
 	border-radius: 50%;
 	box-shadow: 2px 2px 2px 2px #80808050;
 

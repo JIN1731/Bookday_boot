@@ -289,6 +289,15 @@
 				font-size: x-small;
 			}
 			/* footer */
+			.footerHr {
+				display: block;
+				height: 1px;
+				border: 0;
+				border-top: 1px solid rgb(216, 216, 216);
+				margin-top: 50px;
+				margin-bottom: 15px;
+				opacity: inherit;
+			}
 			.footer {
 				margin: 5px;
 			}
@@ -512,7 +521,7 @@
 	<!-- body -->
 
 	<div class="footer">
-		<hr style="border-top: 1px solid rgb(216, 216, 216);">
+		<hr class="footerHr">
 		<div class="f_header">
 			<a href="/"><img src="/resources/bookday_logotitle.png"></a>
 
@@ -552,16 +561,7 @@
 </div>
 <script>
 
-	//(기본 프로필 이미지 프론트 처리 방식)
-	//프로필 사진이 없을 때
-	$( document ).ready(function() {
 
-		if(${dto.sysprofname == "" || dto.sysprofname =="0"}){
-
-			$("#profile").attr("src","/resources/basic.png");
-			return;
-		}
-	});
 
 	$("#logo_img").on("click", function() {
 		location.href = "/";
@@ -827,7 +827,7 @@
 		console.log($("#img_upload").val());
 
 		if($("#img_upload").val() == ""){
-			$("#profile").attr("src","/resources/basic.png");
+			$("#profile").attr("src","/resources/profile/basic.png");
 			return;
 		}
 

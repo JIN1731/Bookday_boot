@@ -1,8 +1,10 @@
 package kh.bookday.config;
 
 import kh.bookday.interceptor.LoginValidator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
@@ -29,4 +31,9 @@ public class WebConfiguration implements WebMvcConfigurer {
                 .excludePathPatterns("/resources/**");
 
 	}
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("file:/home/ubuntu/resources/");
+    }
 }

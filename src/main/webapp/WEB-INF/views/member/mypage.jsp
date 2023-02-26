@@ -594,16 +594,7 @@ text-align:right;
 		</div>
 	</div>
 	<script>
-    //프로필 사진 없을 때
-	$( document ).ready( function() {
-		
-	    
-	  	if(${dto.sysprofname == '0'}){
-	  		
-	  		$("#prof_img").attr("src","/resources/basic.png");
-							return;
-						}
-	   });
+
 	
       $("#logoImg").on("click", function() {
          location.href = "/";

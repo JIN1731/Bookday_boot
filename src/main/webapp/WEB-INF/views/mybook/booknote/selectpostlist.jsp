@@ -878,15 +878,6 @@
 	})
 
 
-	//프로필 사진 없을 때(수아)
-	$( document ).ready( function() {
-
-		if(${p.sysprofname == '0'}){
-
-			$("#profile").attr("src","/resources/basic.png");
-			return;
-		}
-	});
 
 
 	$(".postLike").on("click", function(){

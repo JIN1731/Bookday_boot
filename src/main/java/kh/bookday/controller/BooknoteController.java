@@ -91,7 +91,7 @@ public class BooknoteController {
 
 	// 포스트 입력
 	@ResponseBody
-	@RequestMapping("insertPost")
+	@PostMapping ("insertPost")
 	public int insertPost(PostDTO dto) {
 
 		String id = String.valueOf(session.getAttribute("loginID"));
@@ -105,7 +105,6 @@ public class BooknoteController {
 		dto.setP_title(dto.getP_title().replace("<", "&lt;"));
 		dto.setP_content(dto.getP_content().replace("<script>", "&lt;"));
 
-		System.out.println(service.insertPost(dto));
 		return service.insertPost(dto);
 
 	}
@@ -161,7 +160,7 @@ public class BooknoteController {
 	
 	// 포스트 수정
 	@ResponseBody
-	@RequestMapping("updatePost")
+	@PostMapping("updatePost")
 	public int updatePost(PostDTO dto) {
 		dto.setP_title(dto.getP_title().replace("<", "&lt;"));
 		dto.setP_content(dto.getP_content().replace("<script>", "&lt;"));
@@ -244,7 +243,7 @@ public class BooknoteController {
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
 				
-		String realPath = session.getServletContext().getRealPath("resources/upload");
+		String realPath = session.getServletContext().getRealPath("/resources/upload");;
 		
 		String data = service.uploadSummernoteImageFile(multipartFile, realPath);
 		

@@ -1,5 +1,6 @@
 package kh.bookday.service;
 
+import ch.qos.logback.core.util.FileUtil;
 import com.google.gson.JsonObject;
 import kh.bookday.dao.PostCommentDAO;
 import kh.bookday.dao.PostDAO;
@@ -169,6 +170,10 @@ public class PostService {
 	
 	// 섬머노트 이미지
 	public String uploadSummernoteImageFile(MultipartFile multipartFile, String realPath) {
+
+		if(realPath == null){
+			realPath = "resources/upload";
+		}
 		JsonObject jsonObject = new JsonObject();
 		
 		File filePath = new File(realPath);
@@ -183,9 +188,9 @@ public class PostService {
 		try {
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-			jsonObject.addProperty("url", "/resources/upload/"+savedFileName); 
+			jsonObject.addProperty("url", "/resources/upload/"+savedFileName);
 			jsonObject.addProperty("responseCode", "success");
-				
+
 		} catch (IOException e) {
 			FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
 			jsonObject.addProperty("responseCode", "error");

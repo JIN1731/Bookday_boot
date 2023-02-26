@@ -6,15 +6,17 @@ import kh.bookday.dto.MonthSubMemberDTO;
 import kh.bookday.dto.RentalDTO;
 import kh.bookday.service.MemberService;
 import kh.bookday.service.RentalService;
+import org.apache.commons.io.FileUtils;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.UUID;
 
 @Controller
@@ -215,6 +217,7 @@ public class MemberController {
 	}
 	// 지민
 
+	// 수아
 	//마이페이지 회원정보수정 페이지로 이동
 	@RequestMapping(value="toUpdateMemInfo")
 	public String toUpdateMemInfo(Model model) {
@@ -228,10 +231,9 @@ public class MemberController {
 		return "member/updateMemInfo";
 	}
 
-	// 수아
 	//마이페이지 회원정보수정
 	@RequestMapping(value="updateMemInfo")
-	public String updateMemInfo(MemberDTO dto, MultipartFile[] prof_img, @RequestParam("sys") String sys, @RequestParam("ori") String ori) {
+	public String updateMemInfo(MemberDTO dto, MultipartFile prof_img, @RequestParam("sys") String sys, @RequestParam("ori") String ori) {
 
 		String id = String.valueOf(session.getAttribute("loginID"));
 
@@ -246,20 +248,23 @@ public class MemberController {
 		System.out.println(ori);
 		System.out.println(sys);
 
-		//파일 관련 업데이트 업로드 참고
-		String realPath= session.getServletContext().getRealPath("/resources/profile");
 
-		File filePath= new File(realPath);
-
-		if(!filePath.exists()) {filePath.mkdir();}
 
 		//파일이 수정되었을 때
-		if(!prof_img[0].getOriginalFilename().equals("")) {
+		if(!prof_img.getOriginalFilename().equals("")) {
 
-			for(MultipartFile file : prof_img) {
-				if(file.getOriginalFilename().equals("")) {continue;}
+				//파일 관련 업데이트 업로드 참고
+				String realPath= session.getServletContext().getRealPath("/resources/profile");
 
-				String oriprofname= file.getOriginalFilename();
+				if(realPath == null){
+					realPath = "resources/profile";
+				}
+
+				File filePath= new File(realPath);
+
+				if(!filePath.exists()) {filePath.mkdir();}
+
+				String oriprofname= prof_img.getOriginalFilename();
 				String sysprofname= UUID.randomUUID()+"_"+oriprofname;
 
 
@@ -267,20 +272,21 @@ public class MemberController {
 				dto.setOriprofname(oriprofname);
 				dto.setSysprofname(sysprofname);
 
+				File targetFile = new File(filePath + "/" +sysprofname);
 				try {
-					file.transferTo(new File(filePath+"/"+sysprofname));
+					InputStream fileStream = prof_img.getInputStream();
+					FileUtils.copyInputStreamToFile(fileStream, targetFile);
+					service.updateMemInfo(dto);//파일 저장
 
-					service.updateMemInfo(dto);
-
-				} catch (IllegalStateException | IOException e) {
+				} catch (IOException e) {
+					FileUtils.deleteQuietly(targetFile);	//저장된 파일 삭제
 					e.printStackTrace();
 				}
 
-			}
 
 		}else{
 
-			//기존 파일이 변화가 없을 때 
+			//기존 파일이 변화가 없을 때
 			dto.setOriprofname(ori);
 			dto.setSysprofname(sys);
 
