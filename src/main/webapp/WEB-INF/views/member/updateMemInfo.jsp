@@ -445,7 +445,7 @@
 				</div>
 				<div class="body-right">
 					<input type="text" name="nickname" value="${dto.nickname}"
-						   class="input" id="nickname" maxlength="10" required> <span
+						   class="input" id="nickname" minlength="2" maxlength="5" required> <span
 						id="nk_result"></span>
 				</div>
 				<div class="body-left">
@@ -583,7 +583,7 @@
 		if(${loginID == null}) {
 			location.href = "/member/toLogin";
 		}else {
-			location.href = "/delivery/selectBookbagListById?id=${loginID }";
+			location.href = "/delivery/selectBookbagListById";
 		}
 	})
 	$("#bookshelves").on("click", function() {
@@ -599,11 +599,12 @@
 	})
 
 	//유효성 로직
-	let nicknameRegex=/[가-힣 a-z A-Z 0-9]{2,10}/;
-	let pwRegex=/^[A-Z a-z 0-9 ! @ $ % -]{8,16}$/;
-	let emailRegex=/^[a-z 0-9 A-Z]{3,12}@[A-Z a-z]{5,7}.[a-zA-Z]{2,3}$/;
 	let nameRegex=/[가-힣]{2,5}/;
+	let nicknameRegex=/[가-힣 a-z A-Z 0-9]{2,5}/;
 	let phoneRegex=/^01\d{1}\d{3,4}\d{4}$/;
+	let emailRegex=/^[a-z 0-9 A-Z]{3,12}@[A-Z a-z]{3,7}(.[a-zA-Z]{2,3})?.[a-zA-Z]{2,3}$/;
+	let pwRegex=/^[A-Z a-z 0-9 ! @ $ % -]{8,16}$/;
+
 	//닉네임 중복 확인
 	$("#nickname").on("input",function(){
 		let nickname=$("#nickname").val();

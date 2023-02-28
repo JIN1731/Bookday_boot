@@ -202,7 +202,7 @@ $(document).ready(function(){
      let check_pw=$("#check_pw").val();
 
      let nameRegex=/[가-힣]{2,5}/;
-     let nicknameRegex=/[가-힣 a-z A-Z 0-9]{2,10}/;
+     let nicknameRegex=/[가-힣 a-z A-Z 0-9]{2,5}/;
      let phoneRegex=/^01\d{1}\d{3,4}\d{4}$/;
      let emailRegex=/^[a-z 0-9 A-Z]{3,12}@[A-Z a-z]{3,7}(.[a-zA-Z]{2,3})?.[a-zA-Z]{2,3}$/;
      let pwRegex=/^[A-Z a-z 0-9 ! @ $ % -]{8,16}$/;
@@ -370,7 +370,7 @@ $(document).ready(function(){
 
 		$("#nickname").on("keyup",function(){
 			let nickname=$("#nickname").val();
-			let nicknameRegex=/[가-힣 a-z A-Z 0-9]{2,10}/;
+			let nicknameRegex=/[가-힣 a-z A-Z 0-9]{2,5}/;
 
 			   //닉네임 유효성 검사      
 			if(!nicknameRegex.test(nickname) && nickname != ""){

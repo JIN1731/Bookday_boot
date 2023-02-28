@@ -89,7 +89,7 @@ hr {
 	width: 100%;
 	border: none;
 	border-radius: 5px;
-	box-shadow: 3px 3px 3px 3px #80808050;
+	box-shadow: 2px 2px 2px 2px #80808050;
 }
 
 .searchTxt {
@@ -1106,7 +1106,7 @@ $("#logo_img").on("click", function() {
     if(${loginID == null}) {
          location.href = "/member/toLogin";
     }else {
-         location.href = "/delivery/selectBookbagListById?id=${loginID }";
+         location.href = "/delivery/selectBookbagListById";
     }
  })
  $("#bookshelves").on("click", function() {
@@ -1293,6 +1293,7 @@ $(document).ready(function(){
 					let input=$("#input").val();
 					if(input == ""){
 						alert("리뷰를 입력해주세요.");
+						return false;
 					}
 					
 				});

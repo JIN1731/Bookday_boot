@@ -771,7 +771,7 @@ text-align:right;
 				    
 					// 주소검색, 주소변경 버튼 기능
 					$(".address-btn").on("click", function() {
-						window.open("/delivery/toAddressInput?id=${loginID }", "_blank", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=500, height=500, left=500, top=150");
+						window.open("/delivery/toAddressInput", "_blank", "toolbar=no, menubar=no, scrollbars=yes, resizable=no, width=500, height=500, left=500, top=150");
 					})
 					
 					// 대여하기 버튼 기능

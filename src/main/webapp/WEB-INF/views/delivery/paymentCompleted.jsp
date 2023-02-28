@@ -89,8 +89,8 @@ div {
 	</div>
 	<script>
 		$("#bookbag").on("click", function() {
-			window.opener.location.href="/delivery/selectBookbagListById";
 			window.self.close();
+			opener.document.location.href="/delivery/selectBookbagListById";
 		})
 		$("#close").on("click", function() {
 			opener.parent.location.reload();

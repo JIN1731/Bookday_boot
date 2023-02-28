@@ -155,7 +155,9 @@ public class BookbagController {
 
 	// 결제완료 페이지로 이동
 	@RequestMapping("toPaymentCompleted")
-	public String toPaymentCompleted(String id, Model model) {
+	public String toPaymentCompleted(Model model) {
+
+		String id = (String)session.getAttribute("loginID");
 
 		// 회원 등급 변경
 		mservice.updateMemberGradeById(id);
