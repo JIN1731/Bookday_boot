@@ -46,8 +46,8 @@
 <br>
 
 > Database
-* Oracle -> MySQL (SQL 수정 시에 ANSI 표준을 지켜 많은 수정이 필요 없을 줄 알았지만 Oracle에만 있는 기능은 MySql에만 있거나 더 편리한 기능으로 수정하기 위해 MySql을 공부해야 했 가장 많은 시간이 소요됨)
-* AWS EC2 -> RDS (원 프로젝트는 EC2에 DB를 심는 방식으로 진행하였으나 RDS를 이용하여 DB를 연결)
+* Oracle -> MySQL (SQL 수정 시에 ANSI 표준을 지켜 많은 수정이 필요 없을 줄 알았지만 Oracle에만 있는 기능은 MySql에만 있거나 더 편리한 기능으로 수정하기 위해 MySql을 공부해야 했어서 가장 많은 시간이 소요됨)
+* AWS EC2 -> RDS (원 프로젝트 EC2에 DB를 심는 방식으로 진행하였으나 리팩토링으로 RDS를 이용하여 DB를 연결)
 
 <br>
 
