@@ -1,4 +1,4 @@
-# Bookday_boot(기존 프로젝트 리팩토링 개인 작업)
+# Bookday_boot(기존 프로젝트 Framework, RDBMS, server변경 및링리팩토링 개인 작업)
 
 > 독서 노트 기록 서비스 및 종이책 구독 서비스 웹사이트
 
